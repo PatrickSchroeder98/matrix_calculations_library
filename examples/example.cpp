@@ -2,10 +2,26 @@
 //
 
 #include <iostream>
+#include <vector>
+#include "../../matrix_calculations_library/src/MatrixCalculations.cpp"
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::vector<std::vector<double>> vect
+    {
+       {1, 2, 3},
+       {4, 5, 6},
+       {7, 8, 9}
+    };
+
+    MatrixCalculations mx;
+    mx.set_input_matrix_1(vect);
+    
+    vect = mx.multiply_by_scalar();
+
+    mx.view(mx.get_output_matrix());
+    
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
