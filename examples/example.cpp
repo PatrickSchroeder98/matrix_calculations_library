@@ -1,36 +1,46 @@
-// matrix_calculations_library.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <vector>
-#include "../../matrix_calculations_library/src/MatrixCalculations.cpp"
+#include "../../matrix_calculations_library/include/MatrixCalculations.h"
 
+int main() {
+    // Example with double type
+    std::vector<std::vector<double>> vect_double{
+       {1.1, 2.2, 3.3},
+       {4.4, 5.5, 6.6},
+       {7.7, 8.8, 9.9}
+    };
 
-int main()
-{
-    std::vector<std::vector<double>> vect
-    {
+    MatrixCalculations<double> mx_double;
+    mx_double.set_input_matrix_1(vect_double);
+    mx_double.set_scalar(int(2)); // Example scalar
+    mx_double.multiply_by_scalar();
+    mx_double.view(mx_double.get_output_matrix());
+
+    /*// Example with int type
+    std::vector<std::vector<int>> vect_int{
        {1, 2, 3},
        {4, 5, 6},
        {7, 8, 9}
     };
 
-    MatrixCalculations mx;
-    mx.set_input_matrix_1(vect);
-    
-    vect = mx.multiply_by_scalar();
+    MatrixCalculations<int> mx_int;
+    mx_int.set_input_matrix_1(vect_int);
+    mx_int.set_scalar(2); // Example scalar
+    mx_int.multiply_by_scalar();
+    mx_int.view(mx_int.get_output_matrix());
 
-    mx.view(mx.get_output_matrix());
-    
+    // Example with float type
+    std::vector<std::vector<float>> vect_float{
+       {1.1f, 2.2f, 3.3f},
+       {4.4f, 5.5f, 6.6f},
+       {7.7f, 8.8f, 9.9f}
+    };
+
+    MatrixCalculations<float> mx_float;
+    mx_float.set_input_matrix_1(vect_float);
+    mx_float.set_scalar(2.0f); // Example scalar
+    mx_float.multiply_by_scalar();
+    mx_float.view(mx_float.get_output_matrix());*/
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
