@@ -6,6 +6,8 @@ template<typename T>
 MatrixCalculations<T>::MatrixCalculations() {
     // Constructor sets up the default values of attributes.
     scalar = T();
+    set_input_matrix_1({ {} });
+    set_input_matrix_2({ {} });
     set_output_matrix({ {} });
 }
 
