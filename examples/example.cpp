@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "../../matrix_calculations_library/include/MatrixCalculations.h"
+#include "../../matrix_calculations_library/include/MatrixChecks.h"
 
 int main() {
     // Example with double type
@@ -12,9 +13,13 @@ int main() {
 
     MatrixCalculations<double> mx_double;
     mx_double.set_input_matrix_1(vect_double);
-    mx_double.set_scalar(int(2)); // Example scalar
+    mx_double.set_scalar(int(2));
     mx_double.multiply_by_scalar();
     mx_double.view(mx_double.get_output_matrix());
+
+    MatrixChecks<double> mxc;
+    mxc.sizes_check(vect_double, vect_double);
+    
 
     /*// Example with int type
     std::vector<std::vector<int>> vect_int{

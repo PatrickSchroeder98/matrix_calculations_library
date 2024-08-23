@@ -1,5 +1,4 @@
-#ifndef MATRIX_CALCULATIONS_H
-#define MATRIX_CALCULATIONS_H
+#pragma once
 
 #include <vector>
 #include <iostream>
@@ -33,5 +32,3 @@ public:
 };
 
 #include "../../matrix_calculations_library/src/MatrixCalculations.cpp"
-
-#endif // MATRIX_CALCULATIONS_H

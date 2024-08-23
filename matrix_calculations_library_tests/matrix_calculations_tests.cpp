@@ -366,6 +366,5 @@ namespace matrixcalculationslibrarytests
                 }
             }
         }
-
 	};
 }
