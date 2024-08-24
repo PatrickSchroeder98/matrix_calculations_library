@@ -18,7 +18,7 @@ int main() {
     mx_double.view(mx_double.get_output_matrix());
 
     MatrixChecks<double> mxc;
-    mxc.sizes_check(vect_double, vect_double);
+    mxc.column_matrix_check(vect_double);
     
 
     /*// Example with int type
