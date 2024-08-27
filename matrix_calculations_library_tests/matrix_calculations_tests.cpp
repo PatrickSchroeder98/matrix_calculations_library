@@ -8,7 +8,8 @@ namespace matrixcalculationslibrarytests
 {
 	TEST_CLASS(matrixcalculationslibrarytests)
 	{
-        // Class with library tests
+        // Class with tests of methods from MatrixChecks class.
+
 	public:
         TEST_METHOD(TestSetInputMatrix1Double)
         {
