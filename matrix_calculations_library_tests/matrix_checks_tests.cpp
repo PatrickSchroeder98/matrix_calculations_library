@@ -171,5 +171,101 @@ namespace matrixcheckstests
 			MatrixChecks<double> mxc;
 			Assert::IsFalse(mxc.square_matrix_check(vect1));
 		}
+
+		TEST_METHOD(TestCheckMatrixIdentityTrue)
+		{
+			// Test to check if identity_matrix_check() method returns true if given matrix is an identity matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 0},
+				{0, 1, 0},
+				{0, 0, 1}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsTrue(mxc.identity_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestCheckMatrixIdentityFalse)
+		{
+			// Test to check if identity_matrix_check() method returns false if given matrix is not an identity matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 0},
+				{0, 0, 0},
+				{0, 0, 1}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsFalse(mxc.identity_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestCheckMatrixDiagonalTrue)
+		{
+			// Test to check if diagonal_matrix_check() method returns true if given matrix is a diagonal matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 0},
+				{0, 2, 0},
+				{0, 0, 3}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsTrue(mxc.diagonal_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestCheckMatrixDiagonalFalse)
+		{
+			// Test to check if diagonal_matrix_check() method returns false if given matrix is not a diagonal matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 5},
+				{0, 2, 0},
+				{0, 0, 3}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsFalse(mxc.diagonal_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestCheckMatrixScalarTrue)
+		{
+			// Test to check if scalar_matrix_check() method returns true if given matrix is a scalar matrix.
+			std::vector<std::vector<double>> vect{
+				{3, 0, 0},
+				{0, 3, 0},
+				{0, 0, 3}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsTrue(mxc.scalar_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestCheckMatrixScalarFalse)
+		{
+			// Test to check if scalar_matrix_check() method returns false if given matrix is a not scalar matrix.
+			std::vector<std::vector<double>> vect{
+				{3, 0, 0},
+				{0, 4, 0},
+				{0, 0, 3}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsFalse(mxc.scalar_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestCheckMatrixNullTrue)
+		{
+			// Test to check if null_matrix_check() method returns true if given matrix is a null matrix.
+			std::vector<std::vector<double>> vect{
+				{0, 0, 0},
+				{0, 0, 0},
+				{0, 0, 0}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsTrue(mxc.null_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestCheckMatrixNullFalse)
+		{
+			// Test to check if null_matrix_check() method returns false if given matrix is not a null matrix.
+			std::vector<std::vector<double>> vect{
+				{0, 0, 0},
+				{0, 0, 0},
+				{0, 0, 1}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsFalse(mxc.null_matrix_check(vect));
+		}
 	};
 }
