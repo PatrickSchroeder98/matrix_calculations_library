@@ -37,6 +37,7 @@ int main() {
     vect = mio.load_matrix("C:/src/data.dat");
     std::cout << std::endl;
     mx_double.view(vect);
-
+    std::vector<double> size = mx_double.get_matrix_size(vect);
+    std::cout << size[0] << std::endl << size[1] << std::endl;
     return 0;
 }

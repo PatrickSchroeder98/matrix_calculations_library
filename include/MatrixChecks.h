@@ -17,7 +17,8 @@ public:
     bool diagonal_matrix_check(std::vector<std::vector<T>> vect);
     bool scalar_matrix_check(std::vector<std::vector<T>> vect);
     bool null_matrix_check(std::vector<std::vector<T>> vect);
-    
+    bool upper_lower_triangular_matrix_check(std::vector<std::vector<T>> vect, bool lower);
+    bool equality_check(std::vector<std::vector<T>> vect1, std::vector<std::vector<T>> vect2);
 };
 
 #include "../../matrix_calculations_library/src/MatrixChecks.cpp"

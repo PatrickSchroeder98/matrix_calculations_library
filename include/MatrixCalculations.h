@@ -29,6 +29,7 @@ public:
     T get_scalar();
 
     void multiply_by_scalar();
+    std::vector<T> get_matrix_size(std::vector<std::vector<T>> vect);
 };
 
 #include "../../matrix_calculations_library/src/MatrixCalculations.cpp"

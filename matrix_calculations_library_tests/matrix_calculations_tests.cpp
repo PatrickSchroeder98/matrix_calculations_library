@@ -367,5 +367,23 @@ namespace matrixcalculationslibrarytests
                 }
             }
         }
+
+        TEST_METHOD(TestGetMatrixSize)
+        {
+            // Test for checking if the method returning given matrix sizes.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                {2, 4, 6},
+                {8, 10, 12},
+                {14, 16, 18},
+                {24, 26, 28}
+            };
+            std::vector<double> expected_output = { 4.0, 3.0 };
+            std::vector<double> actual_output = mx.get_matrix_size(input_matrix);
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i], actual_output[i]);
+            }
+        }
 	};
 }

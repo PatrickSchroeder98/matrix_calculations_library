@@ -113,3 +113,9 @@ void MatrixCalculations<T>::multiply_by_scalar() {
     set_output_matrix(output);
 }
 
+template<typename T>
+std::vector<T> MatrixCalculations<T>::get_matrix_size(std::vector<std::vector<T>> vect) {
+    // returns vector with sizes of given matrix.
+    std::vector<T> sizes = { T(vect.size()), T(vect[0].size()) };
+    return sizes;
+}

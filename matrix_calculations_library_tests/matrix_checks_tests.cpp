@@ -267,5 +267,82 @@ namespace matrixcheckstests
 			MatrixChecks<double> mxc;
 			Assert::IsFalse(mxc.null_matrix_check(vect));
 		}
+
+		TEST_METHOD(TestCheckMatrixUpperTriangularTrue)
+		{
+			// Test to check if upper triangular matrix check method returns true if given matrix is an upper triangular matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 2, 3},
+				{0, 4, 5},
+				{0, 0, 6}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsTrue(mxc.upper_lower_triangular_matrix_check(vect, false));
+		}
+
+		TEST_METHOD(TestCheckMatrixUpperTriangularFalse)
+		{
+			// Test to check if upper triangular matrix check method returns false if given matrix is not an upper triangular matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 2, 3},
+				{0, 4, 5},
+				{7, 0, 6}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsFalse(mxc.upper_lower_triangular_matrix_check(vect, false));
+		}
+
+		TEST_METHOD(TestCheckMatrixLowerTriangularTrue)
+		{
+			// Test to check if lower triangular matrix check method returns true if given matrix is an lower triangular matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 0},
+				{2, 3, 0},
+				{4, 5, 6}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsTrue(mxc.upper_lower_triangular_matrix_check(vect, true));
+		}
+
+		TEST_METHOD(TestCheckMatrixLowerTriangularFalse)
+		{
+			// Test to check if lower triangular matrix check method returns false if given matrix is not an lower triangular matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 2, 3},
+				{0, 4, 5},
+				{7, 0, 6}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsFalse(mxc.upper_lower_triangular_matrix_check(vect, true));
+		}
+
+		TEST_METHOD(TestCheckMatrixEqualityTrue)
+		{
+			// Test to check if equality_check returns true if two matrixes are equal.
+			std::vector<std::vector<double>> vect{
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 9}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsTrue(mxc.equality_check(vect, vect));
+		}
+
+		TEST_METHOD(TestCheckMatrixEqualityFalse)
+		{
+			// Test to check if equality_check returns false if two matrixes are not equal.
+			std::vector<std::vector<double>> vect1{
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 9}
+			};
+			std::vector<std::vector<double>> vect2{
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 10}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsFalse(mxc.equality_check(vect1, vect2));
+		}
 	};
 }
