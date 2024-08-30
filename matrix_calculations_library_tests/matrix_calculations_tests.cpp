@@ -385,5 +385,90 @@ namespace matrixcalculationslibrarytests
                 Assert::AreEqual(expected_output[i], actual_output[i]);
             }
         }
+
+        TEST_METHOD(TestGetMatrixDeterminant1x1)
+        {
+            // Test for checking if the method returning determinat of given 1x1 matrix returns correct value.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                { 5.0 }
+            };
+            double expected_output = 5.0;
+            double actual_output = mx.get_matrix_det(input_matrix);
+            Assert::AreEqual(expected_output, actual_output);
+            
+        }
+
+        TEST_METHOD(TestGetMatrixDeterminant2x2)
+        {
+            // Test for checking if the method returning determinat of given 2x2 matrix returns correct value.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                { 3.0, 7.0 },
+                { 1.0, -4.0 }
+            };
+            double expected_output = -19.0;
+            double actual_output = mx.get_matrix_det(input_matrix);
+            Assert::AreEqual(expected_output, actual_output);
+
+        }
+
+        TEST_METHOD(TestGetMatrixDeterminant3x3)
+        {
+            // Test for checking if the method returning determinat of given 3x3 matrix returns correct value.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                { 2.0, 1.0, 3.0 },
+                { 4.0, -2.0, -1.0 },
+                { -5.0, 2.0, 6.0 }
+            };
+            double expected_output = -45.0;
+            double actual_output = mx.get_matrix_det(input_matrix);
+            Assert::AreEqual(expected_output, actual_output);
+
+        }
+
+        TEST_METHOD(TestGetMatrixMinorValid)
+        {
+            // Test for checking if method that cuts matrix minor works correctly.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                {1.1, 2.2, 3.3},
+                {4.4, 5.5, 6.6},
+                {7.7, 8.8, 9.9}
+            };
+            std::vector<std::vector<double>> expected_output = {
+                {5.5, 6.6},
+                {8.8, 9.9}
+            };
+            std::vector<std::vector<double>> actual_output = mx.minor_matrix(input_matrix, 0, 0);
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
+        TEST_METHOD(TestGetMatrixMinorExceptionThrown)
+        {
+            // Test to check if the method throws an exception when invalid indices are used.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                {1.1, 2.2, 3.3},
+                {4.4, 5.5, 6.6},
+                {7.7, 8.8, 9.9}
+            };
+
+            Assert::ExpectException<std::out_of_range>([&mx, &input_matrix] {
+                mx.minor_matrix(input_matrix, -1, 0);
+                }, L"Expected std::out_of_range exception for invalid row index");
+
+            Assert::ExpectException<std::out_of_range>([&mx, &input_matrix] {
+                mx.minor_matrix(input_matrix, 0, 3);
+                }, L"Expected std::out_of_range exception for invalid column index");
+        }
 	};
 }

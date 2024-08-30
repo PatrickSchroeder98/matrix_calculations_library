@@ -115,7 +115,53 @@ void MatrixCalculations<T>::multiply_by_scalar() {
 
 template<typename T>
 std::vector<T> MatrixCalculations<T>::get_matrix_size(std::vector<std::vector<T>> vect) {
-    // returns vector with sizes of given matrix.
+    // Returns vector with sizes of given matrix.
     std::vector<T> sizes = { T(vect.size()), T(vect[0].size()) };
     return sizes;
+}
+
+template<typename T>
+T MatrixCalculations<T>::get_matrix_det(std::vector<std::vector<T>> vect) {
+    // Returns the detrminent of 1x1, 2x2 or 3x3 matrix. Returns 0 if given matrix is different from these options.
+    if (vect.size() == 1 && vect[0].size() == 1) {
+        return vect[0][0];
+    }
+    if (vect.size() == 2 && vect[0].size() == 2) {
+        return (vect[0][0] * vect[1][1]) - (vect[1][0] * vect[0][1]);
+    }
+    if (vect.size() == 3 && vect[0].size() == 3) {
+        return (
+            (vect[0][0] * vect[1][1] * vect[2][2])
+            + (vect[0][1] * vect[1][2] * vect[2][0])
+            + (vect[0][2] * vect[1][0] * vect[2][1])
+            - (vect[0][2] * vect[1][1] * vect[2][0])
+            - (vect[0][0] * vect[1][2] * vect[2][1])
+            - (vect[0][1] * vect[1][0] * vect[2][2])
+            );
+    }
+
+    return 0;
+}
+
+template<typename T>
+std::vector<std::vector<T>> MatrixCalculations<T>::minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m) {
+    // Validate inputs: Check if n and m are within the matrix bounds
+    if (n < 0 || n >= vect.size() || m < 0 || m >= vect[0].size()) {
+        throw std::out_of_range("Index out of bounds for minor matrix.");
+    }
+
+    std::vector<std::vector<T>> minor;
+
+    for (size_t i = 0; i < vect.size(); ++i) {
+        if (i == n) continue;  // Skip the row 'n'
+
+        std::vector<T> row;
+        for (size_t j = 0; j < vect[i].size(); ++j) {
+            if (j == m) continue;  // Skip the column 'm'
+            row.push_back(vect[i][j]);
+        }
+        minor.push_back(row);
+    }
+
+    return minor;
 }

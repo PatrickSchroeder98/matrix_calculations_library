@@ -29,7 +29,11 @@ public:
     T get_scalar();
 
     void multiply_by_scalar();
+
+    T get_matrix_det(std::vector<std::vector<T>> vect);
     std::vector<T> get_matrix_size(std::vector<std::vector<T>> vect);
+    std::vector<std::vector<T>> minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m);
+
 };
 
 #include "../../matrix_calculations_library/src/MatrixCalculations.cpp"
