@@ -269,6 +269,150 @@ namespace matrixcalculationslibrarytests
 
         }
 
+        TEST_METHOD(TestSetGetDetDouble)
+        {
+            // Test for checking if the double type number can be set and retrieved for determinant.
+            MatrixCalculations<double> mx;
+            double expected_output = 3.14;
+
+            mx.set_det(expected_output);
+            double actual_output = mx.get_det();
+
+            Assert::AreEqual(expected_output, actual_output);
+        }
+
+        TEST_METHOD(TestSetGetDetFloat)
+        {
+            // Test for checking if the float type number can be set and retrieved for determinant.
+            MatrixCalculations<float> mx;
+            float expected_output = 2.71f;
+
+            mx.set_det(expected_output);
+            float actual_output = mx.get_det();
+
+            Assert::AreEqual(expected_output, actual_output);
+        }
+
+        TEST_METHOD(TestSetGetDetInt)
+        {
+            // Test for checking if the integer type number can be set and retrieved for determinant.
+            MatrixCalculations<int> mx;
+            int expected_output = 42;
+
+            mx.set_det(expected_output);
+            int actual_output = mx.get_det();
+
+            Assert::AreEqual(expected_output, actual_output);
+        }
+
+        TEST_METHOD(TestSetGetSizesDouble)
+        {
+            // Test for checking if the vector of double type can be set and retrieved for sizes.
+            MatrixCalculations<double> mx;
+            std::vector<double> expected_output = { 3.0, 4.0 };
+
+            mx.set_sizes(expected_output);
+            std::vector<double> actual_output = mx.get_sizes();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i], actual_output[i]);
+            }
+        }
+
+        TEST_METHOD(TestSetGetSizesFloat)
+        {
+            // Test for checking if the vector of float type can be set and retrieved for sizes.
+            MatrixCalculations<float> mx;
+            std::vector<float> expected_output = { 5.0f, 6.0f };
+
+            mx.set_sizes(expected_output);
+            std::vector<float> actual_output = mx.get_sizes();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i], actual_output[i]);
+            }
+        }
+
+        TEST_METHOD(TestSetGetSizesInt)
+        {
+            // Test for checking if the vector of integer type can be set and retrieved for sizes.
+            MatrixCalculations<int> mx;
+            std::vector<int> expected_output = { 7, 8 };
+
+            mx.set_sizes(expected_output);
+            std::vector<int> actual_output = mx.get_sizes();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i], actual_output[i]);
+            }
+        }
+
+        TEST_METHOD(TestSetGetMinorMatrixDouble)
+        {
+            // Test for checking if the 2D vector of double type can be set and retrieved for minor_matrix.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> expected_output = {
+                {1.1, 2.2},
+                {3.3, 4.4}
+            };
+
+            mx.set_minor_matrix(expected_output);
+            std::vector<std::vector<double>> actual_output = mx.get_minor_matrix();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
+        TEST_METHOD(TestSetGetMinorMatrixFloat)
+        {
+            // Test for checking if the 2D vector of float type can be set and retrieved for minor_matrix.
+            MatrixCalculations<float> mx;
+            std::vector<std::vector<float>> expected_output = {
+                {5.5f, 6.6f},
+                {7.7f, 8.8f}
+            };
+
+            mx.set_minor_matrix(expected_output);
+            std::vector<std::vector<float>> actual_output = mx.get_minor_matrix();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
+        TEST_METHOD(TestSetGetMinorMatrixInt)
+        {
+            // Test for checking if the 2D vector of integer type can be set and retrieved for minor_matrix.
+            MatrixCalculations<int> mx;
+            std::vector<std::vector<int>> expected_output = {
+                {9, 10},
+                {11, 12}
+            };
+
+            mx.set_minor_matrix(expected_output);
+            std::vector<std::vector<int>> actual_output = mx.get_minor_matrix();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
         TEST_METHOD(TestMultiplyByScalarDouble)
         {
             // Test for checking if the method for multiplying matrix by scalar works correctly with double type.
@@ -378,8 +522,9 @@ namespace matrixcalculationslibrarytests
                 {14, 16, 18},
                 {24, 26, 28}
             };
+            mx.check_matrix_size(input_matrix);
             std::vector<double> expected_output = { 4.0, 3.0 };
-            std::vector<double> actual_output = mx.get_matrix_size(input_matrix);
+            std::vector<double> actual_output = mx.get_sizes();
             Assert::AreEqual(expected_output.size(), actual_output.size());
             for (size_t i = 0; i < expected_output.size(); ++i) {
                 Assert::AreEqual(expected_output[i], actual_output[i]);
@@ -393,8 +538,9 @@ namespace matrixcalculationslibrarytests
             std::vector<std::vector<double>> input_matrix = {
                 { 5.0 }
             };
+            mx.check_matrix_det(input_matrix);
             double expected_output = 5.0;
-            double actual_output = mx.get_matrix_det(input_matrix);
+            double actual_output = mx.get_det();
             Assert::AreEqual(expected_output, actual_output);
             
         }
@@ -407,8 +553,9 @@ namespace matrixcalculationslibrarytests
                 { 3.0, 7.0 },
                 { 1.0, -4.0 }
             };
+            mx.check_matrix_det(input_matrix);
             double expected_output = -19.0;
-            double actual_output = mx.get_matrix_det(input_matrix);
+            double actual_output = mx.get_det();
             Assert::AreEqual(expected_output, actual_output);
 
         }
@@ -422,8 +569,9 @@ namespace matrixcalculationslibrarytests
                 { 4.0, -2.0, -1.0 },
                 { -5.0, 2.0, 6.0 }
             };
+            mx.check_matrix_det(input_matrix);
             double expected_output = -45.0;
-            double actual_output = mx.get_matrix_det(input_matrix);
+            double actual_output = mx.get_det();
             Assert::AreEqual(expected_output, actual_output);
 
         }
@@ -441,7 +589,8 @@ namespace matrixcalculationslibrarytests
                 {5.5, 6.6},
                 {8.8, 9.9}
             };
-            std::vector<std::vector<double>> actual_output = mx.minor_matrix(input_matrix, 0, 0);
+            mx.cut_minor_matrix(input_matrix, 0, 0);
+            std::vector<std::vector<double>> actual_output = mx.get_minor_matrix();
             Assert::AreEqual(expected_output.size(), actual_output.size());
             for (size_t i = 0; i < expected_output.size(); ++i) {
                 Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
@@ -463,11 +612,11 @@ namespace matrixcalculationslibrarytests
             };
 
             Assert::ExpectException<std::out_of_range>([&mx, &input_matrix] {
-                mx.minor_matrix(input_matrix, -1, 0);
+                mx.cut_minor_matrix(input_matrix, -1, 0);
                 }, L"Expected std::out_of_range exception for invalid row index");
 
             Assert::ExpectException<std::out_of_range>([&mx, &input_matrix] {
-                mx.minor_matrix(input_matrix, 0, 3);
+                mx.cut_minor_matrix(input_matrix, 0, 3);
                 }, L"Expected std::out_of_range exception for invalid column index");
         }
 	};

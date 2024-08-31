@@ -71,6 +71,42 @@ T MatrixCalculations<T>::get_scalar() {
 }
 
 template<typename T>
+void MatrixCalculations<T>::set_det(T det_value) {
+    // Method that allows to set the value of determinant.
+    det = det_value;
+}
+
+template<typename T>
+T MatrixCalculations<T>::get_det() {
+    // Method that allows to get the value of determinant.
+    return det;
+}
+
+template<typename T>
+void MatrixCalculations<T>::set_sizes(std::vector<T> sizes_value) {
+    // Method that allows to set the value of sizes.
+    sizes = sizes_value;
+}
+
+template<typename T>
+std::vector<T> MatrixCalculations<T>::get_sizes() {
+    // Method that allows to get the value of sizes.
+    return sizes;
+}
+
+template<typename T>
+void MatrixCalculations<T>::set_minor_matrix(const std::vector<std::vector<T>>& minor_data) {
+    // Method that allows to set the value of minor_matrix.
+    minor_matrix = minor_data;
+}
+
+template<typename T>
+std::vector<std::vector<T>> MatrixCalculations<T>::get_minor_matrix() {
+    // Method that allows to get the value of minor_matrix.
+    return minor_matrix;
+}
+
+template<typename T>
 void MatrixCalculations<T>::multiply_by_scalar() {
     // Method that allows to multiply a matrix by the scalar.
 
@@ -114,23 +150,22 @@ void MatrixCalculations<T>::multiply_by_scalar() {
 }
 
 template<typename T>
-std::vector<T> MatrixCalculations<T>::get_matrix_size(std::vector<std::vector<T>> vect) {
-    // Returns vector with sizes of given matrix.
-    std::vector<T> sizes = { T(vect.size()), T(vect[0].size()) };
-    return sizes;
+void MatrixCalculations<T>::check_matrix_size(std::vector<std::vector<T>> vect) {
+    // Sets the attribute 'sizes' with the value of sizes of given matrix.
+    set_sizes( { T(vect.size()), T(vect[0].size()) } );
 }
 
 template<typename T>
-T MatrixCalculations<T>::get_matrix_det(std::vector<std::vector<T>> vect) {
+void MatrixCalculations<T>::check_matrix_det(std::vector<std::vector<T>> vect) {
     // Returns the detrminent of 1x1, 2x2 or 3x3 matrix. Returns 0 if given matrix is different from these options.
     if (vect.size() == 1 && vect[0].size() == 1) {
-        return vect[0][0];
+        set_det(vect[0][0]);
     }
-    if (vect.size() == 2 && vect[0].size() == 2) {
-        return (vect[0][0] * vect[1][1]) - (vect[1][0] * vect[0][1]);
+    else if (vect.size() == 2 && vect[0].size() == 2) {
+        set_det((vect[0][0] * vect[1][1]) - (vect[1][0] * vect[0][1]));
     }
-    if (vect.size() == 3 && vect[0].size() == 3) {
-        return (
+    else if (vect.size() == 3 && vect[0].size() == 3) {
+        set_det(
             (vect[0][0] * vect[1][1] * vect[2][2])
             + (vect[0][1] * vect[1][2] * vect[2][0])
             + (vect[0][2] * vect[1][0] * vect[2][1])
@@ -139,12 +174,13 @@ T MatrixCalculations<T>::get_matrix_det(std::vector<std::vector<T>> vect) {
             - (vect[0][1] * vect[1][0] * vect[2][2])
             );
     }
-
-    return 0;
+    else {
+        set_det(0);
+    }
 }
 
 template<typename T>
-std::vector<std::vector<T>> MatrixCalculations<T>::minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m) {
+void MatrixCalculations<T>::cut_minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m) {
     // Validate inputs: Check if n and m are within the matrix bounds
     if (n < 0 || n >= vect.size() || m < 0 || m >= vect[0].size()) {
         throw std::out_of_range("Index out of bounds for minor matrix.");
@@ -163,5 +199,5 @@ std::vector<std::vector<T>> MatrixCalculations<T>::minor_matrix(const std::vecto
         minor.push_back(row);
     }
 
-    return minor;
+    set_minor_matrix(minor);
 }

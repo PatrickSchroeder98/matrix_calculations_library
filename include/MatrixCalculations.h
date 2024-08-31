@@ -10,6 +10,9 @@ private:
     std::vector<std::vector<T>> input_matrix_2;
     std::vector<std::vector<T>> output_matrix;
     T scalar;
+    T det;
+    std::vector<T> sizes;
+    std::vector<std::vector<T>> minor_matrix;
 
 public:
     MatrixCalculations();
@@ -28,11 +31,20 @@ public:
     void set_scalar(T scalar_value);
     T get_scalar();
 
+    void set_det(T det_value);
+    T get_det();
+
+    void set_sizes(std::vector<T> sizes_value);
+    std::vector<T> get_sizes();
+
+    void set_minor_matrix(const std::vector<std::vector<T>>& minor_data);
+    std::vector<std::vector<T>> get_minor_matrix();
+
     void multiply_by_scalar();
 
-    T get_matrix_det(std::vector<std::vector<T>> vect);
-    std::vector<T> get_matrix_size(std::vector<std::vector<T>> vect);
-    std::vector<std::vector<T>> minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m);
+    void check_matrix_det(std::vector<std::vector<T>> vect);
+    void check_matrix_size(std::vector<std::vector<T>> vect);
+    void cut_minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m);
 
 };
 
