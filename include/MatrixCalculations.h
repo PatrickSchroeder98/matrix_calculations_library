@@ -13,6 +13,8 @@ private:
     T det;
     std::vector<T> sizes;
     std::vector<std::vector<T>> minor_matrix;
+    std::vector<std::vector<T>> transposed_matrix;
+    std::vector<std::vector<std::vector<T>>> all_minors;
 
 public:
     MatrixCalculations();
@@ -39,6 +41,12 @@ public:
 
     void set_minor_matrix(const std::vector<std::vector<T>>& minor_data);
     std::vector<std::vector<T>> get_minor_matrix();
+
+    void set_transposed_matrix(const std::vector<std::vector<T>>& transposed_data);
+    std::vector<std::vector<T>> get_transposed_matrix();
+
+    void set_all_minors(const std::vector<std::vector<std::vector<T>>>& all_minors_data);
+    std::vector<std::vector<std::vector<T>>> get_all_minors();
 
     void multiply_by_scalar();
 

@@ -413,6 +413,162 @@ namespace matrixcalculationslibrarytests
             }
         }
 
+        TEST_METHOD(TestSetGetTransposedMatrixDouble)
+        {
+            // Test for checking if the 2D vector of double type can be set and retrieved for transposed_matrix.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> expected_output = {
+                {1.1, 4.4, 7.7},
+                {2.2, 5.5, 8.8},
+                {3.3, 6.6, 9.9}
+            };
+
+            mx.set_transposed_matrix(expected_output);
+            std::vector<std::vector<double>> actual_output = mx.get_transposed_matrix();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
+        TEST_METHOD(TestSetGetTransposedMatrixFloat)
+        {
+            // Test for checking if the 2D vector of float type can be set and retrieved for transposed_matrix.
+            MatrixCalculations<float> mx;
+            std::vector<std::vector<float>> expected_output = {
+                {1.1f, 4.4f, 7.7f},
+                {2.2f, 5.5f, 8.8f},
+                {3.3f, 6.6f, 9.9f}
+            };
+
+            mx.set_transposed_matrix(expected_output);
+            std::vector<std::vector<float>> actual_output = mx.get_transposed_matrix();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
+        TEST_METHOD(TestSetGetTransposedMatrixInt)
+        {
+            // Test for checking if the 2D vector of integer type can be set and retrieved for transposed_matrix.
+            MatrixCalculations<int> mx;
+            std::vector<std::vector<int>> expected_output = {
+                {1, 4, 7},
+                {2, 5, 8},
+                {3, 6, 9}
+            };
+
+            mx.set_transposed_matrix(expected_output);
+            std::vector<std::vector<int>> actual_output = mx.get_transposed_matrix();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
+        TEST_METHOD(TestSetGetAllMinorsDouble)
+        {
+            // Test for checking if the 3D vector of double type can be set and retrieved for all_minors.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<std::vector<double>>> expected_output = {
+                {
+                    {5.5, 6.6},
+                    {8.8, 9.9}
+                },
+                {
+                    {4.4, 6.6},
+                    {7.7, 9.9}
+                }
+            };
+
+            mx.set_all_minors(expected_output);
+            std::vector<std::vector<std::vector<double>>> actual_output = mx.get_all_minors();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j].size(), actual_output[i][j].size());
+                    for (size_t k = 0; k < expected_output[i][j].size(); ++k) {
+                        Assert::AreEqual(expected_output[i][j][k], actual_output[i][j][k]);
+                    }
+                }
+            }
+        }
+
+        TEST_METHOD(TestSetGetAllMinorsFloat)
+        {
+            // Test for checking if the 3D vector of float type can be set and retrieved for all_minors.
+            MatrixCalculations<float> mx;
+            std::vector<std::vector<std::vector<float>>> expected_output = {
+                {
+                    {1.1f, 2.2f},
+                    {3.3f, 4.4f}
+                },
+                {
+                    {5.5f, 6.6f},
+                    {7.7f, 8.8f}
+                }
+            };
+
+            mx.set_all_minors(expected_output);
+            std::vector<std::vector<std::vector<float>>> actual_output = mx.get_all_minors();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j].size(), actual_output[i][j].size());
+                    for (size_t k = 0; k < expected_output[i][j].size(); ++k) {
+                        Assert::AreEqual(expected_output[i][j][k], actual_output[i][j][k]);
+                    }
+                }
+            }
+        }
+
+        TEST_METHOD(TestSetGetAllMinorsInt)
+        {
+            // Test for checking if the 3D vector of integer type can be set and retrieved for all_minors.
+            MatrixCalculations<int> mx;
+            std::vector<std::vector<std::vector<int>>> expected_output = {
+                {
+                    {1, 2},
+                    {3, 4}
+                },
+                {
+                    {5, 6},
+                    {7, 8}
+                }
+            };
+
+            mx.set_all_minors(expected_output);
+            std::vector<std::vector<std::vector<int>>> actual_output = mx.get_all_minors();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j].size(), actual_output[i][j].size());
+                    for (size_t k = 0; k < expected_output[i][j].size(); ++k) {
+                        Assert::AreEqual(expected_output[i][j][k], actual_output[i][j][k]);
+                    }
+                }
+            }
+        }
+
         TEST_METHOD(TestMultiplyByScalarDouble)
         {
             // Test for checking if the method for multiplying matrix by scalar works correctly with double type.

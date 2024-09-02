@@ -107,6 +107,30 @@ std::vector<std::vector<T>> MatrixCalculations<T>::get_minor_matrix() {
 }
 
 template<typename T>
+void MatrixCalculations<T>::set_transposed_matrix(const std::vector<std::vector<T>>& transposed_data) {
+    // Method that allows to set the value of transposed_matrix.
+    transposed_matrix = transposed_data;
+}
+
+template<typename T>
+std::vector<std::vector<T>> MatrixCalculations<T>::get_transposed_matrix() {
+    // Method that allows to get the value of transposed_matrix.
+    return transposed_matrix;
+}
+
+template<typename T>
+void MatrixCalculations<T>::set_all_minors(const std::vector<std::vector<std::vector<T>>>& all_minors_data) {
+    // Method that allows to set the value of all_minors.
+    all_minors = all_minors_data;
+}
+
+template<typename T>
+std::vector<std::vector<std::vector<T>>> MatrixCalculations<T>::get_all_minors() {
+    // Method that allows to get the value of all_minors.
+    return all_minors;
+}
+
+template<typename T>
 void MatrixCalculations<T>::multiply_by_scalar() {
     // Method that allows to multiply a matrix by the scalar.
 
