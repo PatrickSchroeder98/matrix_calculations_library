@@ -775,5 +775,66 @@ namespace matrixcalculationslibrarytests
                 mx.cut_minor_matrix(input_matrix, 0, 3);
                 }, L"Expected std::out_of_range exception for invalid column index");
         }
+
+        TEST_METHOD(TestGetTransposedMatrixValid)
+        {
+            // Test for checking if method that sets transposed matrix works correctly.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                {1.1, 2.2},
+                {4.4, 5.5},
+            };
+            std::vector<std::vector<double>> expected_output = {
+                {1.1, 4.4},
+                {2.2, 5.5},
+            };
+            mx.transpose_matrix(input_matrix);
+            std::vector<std::vector<double>> actual_output = mx.get_transposed_matrix();
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
+        TEST_METHOD(TestCutAllMinors)
+        {
+            // Test for checking if the method cutting all minors from matrix works correctly.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                {1.1, 2.2},
+                {3.3, 4.4},
+            };
+            std::vector<std::vector<std::vector<double>>> expected_output = {
+                {
+                    { 4.4 }
+                },
+                {
+                    { 3.3 }
+                },
+                {
+                    { 2.2 }
+                },
+                {
+                    { 1.1 }
+                }
+            };
+            mx.cut_all_minor_matrices(input_matrix);
+            std::vector<std::vector<std::vector<double>>> actual_output = mx.get_all_minors();
+
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j].size(), actual_output[i][j].size());
+                    for (size_t k = 0; k < expected_output[i][j].size(); ++k) {
+                        Assert::AreEqual(expected_output[i][j][k], actual_output[i][j][k]);
+                    }
+                }
+            }
+        }
 	};
 }

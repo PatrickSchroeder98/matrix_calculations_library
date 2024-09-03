@@ -171,3 +171,19 @@ bool MatrixChecks<T>::equality_check(std::vector<std::vector<T>> vect1, std::vec
 
     return true;
 }
+
+template<typename T>
+bool MatrixChecks<T>::binary_matrix_check(std::vector<std::vector<T>> vect) {
+    // Returns true if given matrix is a binary matrix.
+
+    for (int i = 0; i < vect.size(); i++)
+    {
+        for (int j = 0; j < vect[i].size(); j++)
+        {
+            if (vect[i][j] != 0 && vect[i][j] != 1) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

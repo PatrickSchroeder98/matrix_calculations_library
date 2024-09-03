@@ -181,7 +181,7 @@ void MatrixCalculations<T>::check_matrix_size(std::vector<std::vector<T>> vect) 
 
 template<typename T>
 void MatrixCalculations<T>::check_matrix_det(std::vector<std::vector<T>> vect) {
-    // Returns the detrminent of 1x1, 2x2 or 3x3 matrix. Returns 0 if given matrix is different from these options.
+    // Sets the detrminent of 1x1, 2x2 or 3x3 matrix. Returns 0 if given matrix is different from these options.
     if (vect.size() == 1 && vect[0].size() == 1) {
         set_det(vect[0][0]);
     }
@@ -205,7 +205,7 @@ void MatrixCalculations<T>::check_matrix_det(std::vector<std::vector<T>> vect) {
 
 template<typename T>
 void MatrixCalculations<T>::cut_minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m) {
-    // Validate inputs: Check if n and m are within the matrix bounds
+    // Sets the minor marix of given matrix with specified row and column to cut.
     if (n < 0 || n >= vect.size() || m < 0 || m >= vect[0].size()) {
         throw std::out_of_range("Index out of bounds for minor matrix.");
     }
@@ -224,4 +224,36 @@ void MatrixCalculations<T>::cut_minor_matrix(const std::vector<std::vector<T>>& 
     }
 
     set_minor_matrix(minor);
+}
+
+template<typename T>
+void MatrixCalculations<T>::transpose_matrix(std::vector<std::vector<T>> vect) {
+    // Sets a transposed matrix. TODO fix for rectangular matrices
+    std::vector<std::vector<T>> v;
+    std::vector<T> v_tmp;
+    for (size_t i = 0; i < vect.size(); i++)
+    {
+        for (size_t j = 0; j < vect[i].size(); j++)
+        {
+            v_tmp.push_back(vect[j][i]);
+        }
+        v.push_back(v_tmp);
+        v_tmp.clear();
+    }
+    set_transposed_matrix(v);
+}
+
+template<typename T>
+void MatrixCalculations<T>::cut_all_minor_matrices(std::vector<std::vector<T>> vect) {
+    // Sets vector with all minor matrixes cut from given marix.
+    std::vector<std::vector<std::vector<T>>> all_minors_vect;
+    for (int n = 0; n < vect.size(); n++)
+    {
+        for (int m = 0; m < vect[0].size(); m++)
+        {
+            cut_minor_matrix(vect, n, m);
+            all_minors_vect.push_back(get_minor_matrix());
+        }
+    }
+    set_all_minors(all_minors_vect);
 }

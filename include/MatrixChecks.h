@@ -19,6 +19,7 @@ public:
     bool null_matrix_check(std::vector<std::vector<T>> vect);
     bool upper_lower_triangular_matrix_check(std::vector<std::vector<T>> vect, bool lower);
     bool equality_check(std::vector<std::vector<T>> vect1, std::vector<std::vector<T>> vect2);
+    bool binary_matrix_check(std::vector<std::vector<T>> vect);
 };
 
 #include "../../matrix_calculations_library/src/MatrixChecks.cpp"

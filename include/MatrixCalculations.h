@@ -53,6 +53,9 @@ public:
     void check_matrix_det(std::vector<std::vector<T>> vect);
     void check_matrix_size(std::vector<std::vector<T>> vect);
     void cut_minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m);
+    void transpose_matrix(std::vector<std::vector<T>> vect);
+    void cut_all_minor_matrices(std::vector<std::vector<T>> vect);
+
 
 };
 

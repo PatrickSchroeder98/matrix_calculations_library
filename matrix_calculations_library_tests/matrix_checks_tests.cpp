@@ -344,5 +344,29 @@ namespace matrixcheckstests
 			MatrixChecks<double> mxc;
 			Assert::IsFalse(mxc.equality_check(vect1, vect2));
 		}
+
+		TEST_METHOD(TestCheckMatrixBinaryTrue)
+		{
+			// Test to check if binary_matrix_check() method returns true if given matrix is a binary matrix.
+			std::vector<std::vector<double>> vect{
+				{0, 0, 0},
+				{0, 1, 0},
+				{1, 1, 0}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsTrue(mxc.binary_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestCheckMatrixBinaryFalse)
+		{
+			// Test to check if binary_matrix_check() method returns false if given matrix is not a binary matrix.
+			std::vector<std::vector<double>> vect{
+				{0, 0, 0},
+				{1, 0, 1},
+				{0, 0, 3}
+			};
+			MatrixChecks<double> mxc;
+			Assert::IsFalse(mxc.binary_matrix_check(vect));
+		}
 	};
 }
