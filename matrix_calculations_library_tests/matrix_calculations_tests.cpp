@@ -836,5 +836,69 @@ namespace matrixcalculationslibrarytests
                 }
             }
         }
+
+        TEST_METHOD(TestAddMatrix)
+        {
+            // Test for checking if the method for adding two matrices works correctly.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                {1.0, 2.0, 3.0},
+                {4.0, 5.0, 6.0},
+                {7.0, 8.0, 9.0}
+            };
+            std::vector<std::vector<double>> expected_output = {
+                {2.0, 4.0, 6.0},
+                {8.0, 10.0, 12.0},
+                {14.0, 16.0, 18.0}
+            };
+
+            mx.set_input_matrix_1(input_matrix);
+            mx.set_input_matrix_2(input_matrix);
+
+            mx.add_subtract(true);
+
+            std::vector<std::vector<double>> actual_output = mx.get_output_matrix();
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
+        TEST_METHOD(TestSubtractMatrix)
+        {
+            // Test for checking if the method for subtracting two matrices works correctly.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                {1.0, 2.0, 3.0},
+                {4.0, 5.0, 6.0},
+                {7.0, 8.0, 9.0}
+            };
+            std::vector<std::vector<double>> expected_output = {
+                {0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0}
+            };
+
+            mx.set_input_matrix_1(input_matrix);
+            mx.set_input_matrix_2(input_matrix);
+
+            mx.add_subtract(false);
+
+            std::vector<std::vector<double>> actual_output = mx.get_output_matrix();
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
 	};
 }

@@ -257,3 +257,54 @@ void MatrixCalculations<T>::cut_all_minor_matrices(std::vector<std::vector<T>> v
     }
     set_all_minors(all_minors_vect);
 }
+
+template<typename T>
+void MatrixCalculations<T>::add_subtract(bool add) {
+    // Sets the output matrix as sum or diference of two input matrices.
+
+    std::vector<std::vector<T>>& vect1 = get_input_matrix_1();
+    std::vector<std::vector<T>>& vect2 = get_input_matrix_2();
+
+
+    // Function thats multiplies the chosen rows of matrix by the scalar
+    auto multiply_row = [&](int start_row, int end_row) {
+        for (int i = start_row; i < end_row; i++)
+        {
+            for (int j = 0; j < vect1[i].size(); j++)
+            {
+                if (add) {
+                    vect1[i][j] = vect1[i][j] + vect2[i][j];
+                }
+                else {
+                    vect1[i][j] = vect1[i][j] - vect2[i][j];
+                }
+            }
+        }
+    };
+
+    // Determine the number of threads to use
+    unsigned int num_threads = std::thread::hardware_concurrency();
+    if (num_threads == 0) num_threads = 2;  // Fallback to 2 if unable to detect
+
+    // Create the future vector and variables for rows per threads and remainder
+    std::vector<std::future<void>> futures;
+    int rows_per_thread = input_matrix_1.size() / num_threads;
+    int remainder = input_matrix_1.size() % num_threads;
+
+    // Start the threads with the method and rows
+    int start_row = 0;
+    for (unsigned int i = 0; i < num_threads; ++i) {
+        int end_row = start_row + rows_per_thread + (i < remainder ? 1 : 0);
+        futures.emplace_back(std::async(std::launch::async, multiply_row, start_row, end_row));
+        start_row = end_row;
+    }
+
+    // Wait for all threads to complete
+    for (auto& fut : futures) {
+        fut.get();
+    }
+
+    // Save the output to attribute
+    set_output_matrix(vect1);
+}
+

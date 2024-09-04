@@ -49,6 +49,7 @@ public:
     std::vector<std::vector<std::vector<T>>> get_all_minors();
 
     void multiply_by_scalar();
+    void add_subtract(bool add);
 
     void check_matrix_det(std::vector<std::vector<T>> vect);
     void check_matrix_size(std::vector<std::vector<T>> vect);
