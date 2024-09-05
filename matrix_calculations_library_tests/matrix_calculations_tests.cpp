@@ -678,7 +678,8 @@ namespace matrixcalculationslibrarytests
                 {14, 16, 18},
                 {24, 26, 28}
             };
-            mx.check_matrix_size(input_matrix);
+            mx.set_input_matrix_1(input_matrix);
+            mx.check_matrix_size();
             std::vector<double> expected_output = { 4.0, 3.0 };
             std::vector<double> actual_output = mx.get_sizes();
             Assert::AreEqual(expected_output.size(), actual_output.size());
@@ -694,7 +695,8 @@ namespace matrixcalculationslibrarytests
             std::vector<std::vector<double>> input_matrix = {
                 { 5.0 }
             };
-            mx.check_matrix_det(input_matrix);
+            mx.set_input_matrix_1(input_matrix);
+            mx.check_matrix_det();
             double expected_output = 5.0;
             double actual_output = mx.get_det();
             Assert::AreEqual(expected_output, actual_output);
@@ -709,7 +711,8 @@ namespace matrixcalculationslibrarytests
                 { 3.0, 7.0 },
                 { 1.0, -4.0 }
             };
-            mx.check_matrix_det(input_matrix);
+            mx.set_input_matrix_1(input_matrix);
+            mx.check_matrix_det();
             double expected_output = -19.0;
             double actual_output = mx.get_det();
             Assert::AreEqual(expected_output, actual_output);
@@ -725,7 +728,8 @@ namespace matrixcalculationslibrarytests
                 { 4.0, -2.0, -1.0 },
                 { -5.0, 2.0, 6.0 }
             };
-            mx.check_matrix_det(input_matrix);
+            mx.set_input_matrix_1(input_matrix);
+            mx.check_matrix_det();
             double expected_output = -45.0;
             double actual_output = mx.get_det();
             Assert::AreEqual(expected_output, actual_output);
@@ -745,7 +749,8 @@ namespace matrixcalculationslibrarytests
                 {5.5, 6.6},
                 {8.8, 9.9}
             };
-            mx.cut_minor_matrix(input_matrix, 0, 0);
+            mx.set_input_matrix_1(input_matrix);
+            mx.cut_minor_matrix(0, 0);
             std::vector<std::vector<double>> actual_output = mx.get_minor_matrix();
             Assert::AreEqual(expected_output.size(), actual_output.size());
             for (size_t i = 0; i < expected_output.size(); ++i) {
@@ -766,13 +771,14 @@ namespace matrixcalculationslibrarytests
                 {4.4, 5.5, 6.6},
                 {7.7, 8.8, 9.9}
             };
+            mx.set_input_matrix_1(input_matrix);
 
             Assert::ExpectException<std::out_of_range>([&mx, &input_matrix] {
-                mx.cut_minor_matrix(input_matrix, -1, 0);
+                mx.cut_minor_matrix(-1, 0);
                 }, L"Expected std::out_of_range exception for invalid row index");
 
             Assert::ExpectException<std::out_of_range>([&mx, &input_matrix] {
-                mx.cut_minor_matrix(input_matrix, 0, 3);
+                mx.cut_minor_matrix(0, 3);
                 }, L"Expected std::out_of_range exception for invalid column index");
         }
 
@@ -788,7 +794,8 @@ namespace matrixcalculationslibrarytests
                 {1.1, 4.4},
                 {2.2, 5.5},
             };
-            mx.transpose_matrix(input_matrix);
+            mx.set_input_matrix_1(input_matrix);
+            mx.transpose_matrix();
             std::vector<std::vector<double>> actual_output = mx.get_transposed_matrix();
             Assert::AreEqual(expected_output.size(), actual_output.size());
             for (size_t i = 0; i < expected_output.size(); ++i) {
@@ -822,7 +829,8 @@ namespace matrixcalculationslibrarytests
                     { 1.1 }
                 }
             };
-            mx.cut_all_minor_matrices(input_matrix);
+            mx.set_input_matrix_1(input_matrix);
+            mx.cut_all_minor_matrices();
             std::vector<std::vector<std::vector<double>>> actual_output = mx.get_all_minors();
 
             Assert::AreEqual(expected_output.size(), actual_output.size());

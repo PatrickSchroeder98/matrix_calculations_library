@@ -51,11 +51,11 @@ public:
     void multiply_by_scalar();
     void add_subtract(bool add);
 
-    void check_matrix_det(std::vector<std::vector<T>> vect);
-    void check_matrix_size(std::vector<std::vector<T>> vect);
-    void cut_minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m);
-    void transpose_matrix(std::vector<std::vector<T>> vect);
-    void cut_all_minor_matrices(std::vector<std::vector<T>> vect);
+    void check_matrix_det();
+    void check_matrix_size();
+    void cut_minor_matrix(int n, int m);
+    void transpose_matrix();
+    void cut_all_minor_matrices();
 
 
 };

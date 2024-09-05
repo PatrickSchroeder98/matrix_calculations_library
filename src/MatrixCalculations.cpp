@@ -174,14 +174,16 @@ void MatrixCalculations<T>::multiply_by_scalar() {
 }
 
 template<typename T>
-void MatrixCalculations<T>::check_matrix_size(std::vector<std::vector<T>> vect) {
+void MatrixCalculations<T>::check_matrix_size() {
     // Sets the attribute 'sizes' with the value of sizes of given matrix.
+    std::vector<std::vector<T>> vect = get_input_matrix_1();
     set_sizes( { T(vect.size()), T(vect[0].size()) } );
 }
 
 template<typename T>
-void MatrixCalculations<T>::check_matrix_det(std::vector<std::vector<T>> vect) {
+void MatrixCalculations<T>::check_matrix_det() {
     // Sets the detrminent of 1x1, 2x2 or 3x3 matrix. Returns 0 if given matrix is different from these options.
+    std::vector<std::vector<T>>& vect = get_input_matrix_1();
     if (vect.size() == 1 && vect[0].size() == 1) {
         set_det(vect[0][0]);
     }
@@ -204,8 +206,10 @@ void MatrixCalculations<T>::check_matrix_det(std::vector<std::vector<T>> vect) {
 }
 
 template<typename T>
-void MatrixCalculations<T>::cut_minor_matrix(const std::vector<std::vector<T>>& vect, int n, int m) {
+void MatrixCalculations<T>::cut_minor_matrix(int n, int m) {
     // Sets the minor marix of given matrix with specified row and column to cut.
+    std::vector<std::vector<T>>& vect = get_input_matrix_1();
+    
     if (n < 0 || n >= vect.size() || m < 0 || m >= vect[0].size()) {
         throw std::out_of_range("Index out of bounds for minor matrix.");
     }
@@ -227,8 +231,9 @@ void MatrixCalculations<T>::cut_minor_matrix(const std::vector<std::vector<T>>& 
 }
 
 template<typename T>
-void MatrixCalculations<T>::transpose_matrix(std::vector<std::vector<T>> vect) {
+void MatrixCalculations<T>::transpose_matrix() {
     // Sets a transposed matrix. TODO fix for rectangular matrices
+    std::vector<std::vector<T>>& vect = get_input_matrix_1();
     std::vector<std::vector<T>> v;
     std::vector<T> v_tmp;
     for (size_t i = 0; i < vect.size(); i++)
@@ -244,14 +249,15 @@ void MatrixCalculations<T>::transpose_matrix(std::vector<std::vector<T>> vect) {
 }
 
 template<typename T>
-void MatrixCalculations<T>::cut_all_minor_matrices(std::vector<std::vector<T>> vect) {
+void MatrixCalculations<T>::cut_all_minor_matrices() {
     // Sets vector with all minor matrixes cut from given marix.
     std::vector<std::vector<std::vector<T>>> all_minors_vect;
+    std::vector<std::vector<T>>& vect = get_input_matrix_1();
     for (int n = 0; n < vect.size(); n++)
     {
         for (int m = 0; m < vect[0].size(); m++)
         {
-            cut_minor_matrix(vect, n, m);
+            cut_minor_matrix(n, m);
             all_minors_vect.push_back(get_minor_matrix());
         }
     }
