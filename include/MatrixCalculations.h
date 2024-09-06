@@ -50,6 +50,8 @@ public:
 
     void multiply_by_scalar();
     void add_subtract(bool add);
+    void multiply_matrices();
+
 
     void check_matrix_det();
     void check_matrix_size();

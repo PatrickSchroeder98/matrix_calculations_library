@@ -38,6 +38,9 @@ int main() {
     std::cout << std::endl;
     mx_double.view(vect);
     mx_double.check_matrix_size();
+    mx_double.transpose_matrix();
     std::cout << mx_double.get_sizes()[0] << std::endl  << std::endl;
+    vect = mx_double.get_transposed_matrix();
+    mx_double.view(vect);
     return 0;
 }

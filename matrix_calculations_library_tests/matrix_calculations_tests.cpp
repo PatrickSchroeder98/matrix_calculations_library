@@ -782,7 +782,7 @@ namespace matrixcalculationslibrarytests
                 }, L"Expected std::out_of_range exception for invalid column index");
         }
 
-        TEST_METHOD(TestGetTransposedMatrixValid)
+        TEST_METHOD(TestGetTransposedMatrixValid2x2)
         {
             // Test for checking if method that sets transposed matrix works correctly.
             MatrixCalculations<double> mx;
@@ -793,6 +793,32 @@ namespace matrixcalculationslibrarytests
             std::vector<std::vector<double>> expected_output = {
                 {1.1, 4.4},
                 {2.2, 5.5},
+            };
+            mx.set_input_matrix_1(input_matrix);
+            mx.transpose_matrix();
+            std::vector<std::vector<double>> actual_output = mx.get_transposed_matrix();
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+                }
+            }
+        }
+
+        TEST_METHOD(TestGetTransposedMatrixValid3x2)
+        {
+            // Test for checking if method that sets transposed matrix works correctly.
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> input_matrix = {
+                {1.1, 2.2},
+                {4.4, 5.5},
+                {6.6, 7.7}
+            };
+            std::vector<std::vector<double>> expected_output = {
+                {1.1, 4.4, 6.6},
+                {2.2, 5.5, 7.7},
             };
             mx.set_input_matrix_1(input_matrix);
             mx.transpose_matrix();
