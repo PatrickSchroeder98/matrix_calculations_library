@@ -934,5 +934,90 @@ namespace matrixcalculationslibrarytests
                 }
             }
         }
+
+        TEST_METHOD(TestMultiplyMatrices_2x3_3x2)
+        {
+            // Test multiplying a 2x3 matrix with a 3x2 matrix
+            MatrixCalculations<double> mx;
+
+            // Input matrices
+            std::vector<std::vector<double>> matrix_a{
+                {1, 2, 3},
+                {4, 5, 6}
+            };
+
+            std::vector<std::vector<double>> matrix_b{
+                {7, 8},
+                {9, 10},
+                {11, 12}
+            };
+            mx.set_input_matrix_1(matrix_a);
+            mx.set_input_matrix_2(matrix_b);
+
+            // Expected result matrix (2x2)
+            std::vector<std::vector<double>> expected_output{
+                {58, 64},
+                {139, 154}
+            };
+
+            // Perform multiplication
+            mx.multiply_matrices();
+            std::vector<std::vector<double>> actual_output = mx.get_output_matrix();
+
+            // Assert sizes of the output matrices
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+            // Assert the contents of the output matrix
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+                }
+            }
+        }
+
+        TEST_METHOD(TestMultiplyMatrices_3x3_3x3)
+        {
+            // Test multiplying two 3x3 matrices
+            MatrixCalculations<double> mx;
+
+            // Input matrices
+            std::vector<std::vector<double>> matrix_a{
+                {1.0, 2.0, 3.0},
+                {4.0, 5.0, 6.0},
+                {7.0, 8.0, 9.0}
+            };
+
+            std::vector<std::vector<double>> matrix_b{
+                {9.0, 8.0, 7.0},
+                {6.0, 5.0, 4.0},
+                {3.0, 2.0, 1.0}
+            };
+            mx.set_input_matrix_1(matrix_a);
+            mx.set_input_matrix_2(matrix_b);
+
+            // Expected result matrix (3x3)
+            std::vector<std::vector<double>> expected_output{
+                {30.0, 24.0, 18.0},
+                {84.0, 69.0, 54.0},
+                {138.0, 114.0, 90.0}
+            };
+
+            // Perform multiplication
+            mx.multiply_matrices();
+            std::vector<std::vector<double>> actual_output = mx.get_output_matrix();
+
+            // Assert sizes of the output matrices
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+            // Assert the contents of the output matrix
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+                }
+            }
+        }
+
 	};
 }

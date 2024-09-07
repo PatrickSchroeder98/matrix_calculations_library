@@ -340,8 +340,9 @@ void MatrixCalculations<T>::add_subtract(bool add) {
     set_output_matrix(vect1);
 }
 
-/*template<typename T>
+template<typename T>
 void MatrixCalculations<T>::multiply_matrices() {
+    // Method to multiple two matrices.
 
     // Get the dimensions of the result matrix
     size_t rows_a = input_matrix_1.size();
@@ -351,15 +352,45 @@ void MatrixCalculations<T>::multiply_matrices() {
     // Initialize the result matrix C with dimensions rows_a x cols_b
     std::vector<std::vector<T>> result(rows_a, std::vector<T>(cols_b, 0));
 
-    // Perform the multiplication
-    for (size_t i = 0; i < rows_a; ++i) {
-        for (size_t j = 0; j < cols_b; ++j) {
-            // Compute the dot product for result[i][j]
-            for (size_t k = 0; k < cols_a; ++k) {
-                result[i][j] += input_matrix_1[i][k] * input_matrix_2[k][j];
+
+    // Function thats multiplies the chosen rows of matrix by the scalar
+    auto multiply = [&](int start_row, int end_row) {
+        for (size_t i = start_row; i < end_row; ++i) {
+            for (size_t j = 0; j < cols_b; ++j) {
+                // Compute the dot product for result[i][j]
+                for (size_t k = 0; k < cols_a; ++k) {
+                    result[i][j] += input_matrix_1[i][k] * input_matrix_2[k][j];
+                }
             }
         }
+    };
+
+    // Determine the number of threads to use
+    unsigned int num_threads = std::thread::hardware_concurrency();
+    if (rows_a < num_threads || cols_b < num_threads) {
+        num_threads = std::min(rows_a, cols_b); // Avoid creating more threads than needed
     }
 
+    if (num_threads == 0) num_threads = 2;  // Fallback to 2 if unable to detect
+
+    // Create the future vector and variables for rows per threads and remainder
+    std::vector<std::future<void>> futures;
+    int rows_per_thread = input_matrix_1.size() / num_threads;
+    int remainder = input_matrix_1.size() % num_threads;
+
+    // Start the threads with the method and rows
+    int start_row = 0;
+    for (unsigned int i = 0; i < num_threads; ++i) {
+        int end_row = start_row + rows_per_thread + (i < remainder ? 1 : 0);
+        futures.emplace_back(std::async(std::launch::async, multiply, start_row, end_row));
+        start_row = end_row;
+    }
+
+    // Wait for all threads to complete
+    for (auto& fut : futures) {
+        fut.get();
+    }
+
+    // Save the output to attribute
     set_output_matrix(result);
-}*/
+}
