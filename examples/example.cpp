@@ -42,5 +42,7 @@ int main() {
     std::cout << mx_double.get_sizes()[0] << std::endl  << std::endl;
     vect = mx_double.get_transposed_matrix();
     mx_double.view(vect);
+
+    mio.save_matrix("C:/src/data_saved.dat", vect_double);
     return 0;
 }
