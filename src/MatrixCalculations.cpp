@@ -298,7 +298,6 @@ void MatrixCalculations<T>::add_subtract(bool add) {
     std::vector<std::vector<T>>& vect2 = get_input_matrix_2();
 
 
-    // Function thats multiplies the chosen rows of matrix by the scalar
     auto multiply_row = [&](int start_row, int end_row) {
         for (int i = start_row; i < end_row; i++)
         {

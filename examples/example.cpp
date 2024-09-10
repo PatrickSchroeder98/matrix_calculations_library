@@ -24,6 +24,7 @@ int main() {
 
     MatrixChecks<double> mxc;
     mxc.column_matrix_check(vect_double);
+    mxc.identity_matrix_check(vect_double);
 
     std::vector<std::vector<double>> vect{
        {2, 0, 0},

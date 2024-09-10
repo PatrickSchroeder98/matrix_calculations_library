@@ -1,3 +1,6 @@
+#include <thread>
+#include <future>
+#include <atomic>
 #include "../../matrix_calculations_library/include/MatrixChecks.h"
 
 template<typename T>
@@ -56,74 +59,198 @@ bool MatrixChecks<T>::square_matrix_check(std::vector<std::vector<T>> vect) {
 template<typename T>
 bool MatrixChecks<T>::identity_matrix_check(std::vector<std::vector<T>> vect) {
     // Returns true if given matrix is an identity matrix.
-    if (!square_matrix_check(vect)) { return false; }
-    for (int i = 0; i < vect.size(); i++)
-    {
-        for (int j = 0; j < vect[i].size(); j++)
-        {
-            if (vect[i][i] != 1) {
-                return false;
-            }
-            else if (i != j && vect[i][j] != 0) {
-                return false;
+    if (!square_matrix_check(vect)) {
+        return false;
+    }
+
+    // Shared atomic flag to signal if any thread detects an anomaly
+    std::atomic<bool> is_identity{ true };
+
+    auto check_identity = [&](int start_row, int end_row) {
+        for (int i = start_row; i < end_row && is_identity; i++) {  // Exit if flag is false
+            for (int j = 0; j < vect[i].size(); j++) {
+                if ((i == j && vect[i][i] != 1) || (i != j && vect[i][j] != 0)) {
+                    is_identity = false;  // Detected anomaly, stop further checks
+                    return;
+                }
             }
         }
+        };
+
+    // Determine the number of threads to use
+    unsigned int num_threads = std::thread::hardware_concurrency();
+    if (num_threads == 0) num_threads = 2;  // Fallback to 2 if unable to detect
+
+    // Create futures and divide work across threads
+    std::vector<std::future<void>> futures;
+    int rows_per_thread = vect.size() / num_threads;
+    int remainder = vect.size() % num_threads;
+
+    int start_row = 0;
+    for (unsigned int i = 0; i < num_threads; ++i) {
+        int end_row = start_row + rows_per_thread + (i < remainder ? 1 : 0);
+        futures.emplace_back(std::async(std::launch::async, check_identity, start_row, end_row));
+        start_row = end_row;
     }
-    return true;
+
+    // Wait for all threads to complete
+    for (auto& fut : futures) {
+        fut.get();
+    }
+
+    // Return the final result
+    return is_identity;
 }
 
 template<typename T>
 bool MatrixChecks<T>::diagonal_matrix_check(std::vector<std::vector<T>> vect) {
     // Returns true if given matrix is an diagonal matrix.
-    if (!square_matrix_check(vect)) { return false; }
-    for (int i = 0; i < vect.size(); i++)
-    {
-        for (int j = 0; j < vect[i].size(); j++)
+    
+    if (!square_matrix_check(vect)) {
+        return false;
+    }
+
+    // Shared atomic flag to signal if any thread detects an anomaly
+    std::atomic<bool> is_identity{ true };
+
+    auto check = [&](int start_row, int end_row) {
+        for (int i = start_row; i < end_row && is_identity; i++)
         {
-            if (vect[i][i] == 0) {
-                return false;
-            }
-            else if (i != j && vect[i][j] != 0) {
-                return false;
+            for (int j = 0; j < vect[i].size(); j++)
+            {
+                if (vect[i][i] == 0) {
+                    is_identity = false;
+                    return;
+                }
+                else if (i != j && vect[i][j] != 0) {
+                    is_identity = false;
+                    return;
+                }
             }
         }
+        };
+
+    // Determine the number of threads to use
+    unsigned int num_threads = std::thread::hardware_concurrency();
+    if (num_threads == 0) num_threads = 2;  // Fallback to 2 if unable to detect
+
+    // Create futures and divide work across threads
+    std::vector<std::future<void>> futures;
+    int rows_per_thread = vect.size() / num_threads;
+    int remainder = vect.size() % num_threads;
+
+    int start_row = 0;
+    for (unsigned int i = 0; i < num_threads; ++i) {
+        int end_row = start_row + rows_per_thread + (i < remainder ? 1 : 0);
+        futures.emplace_back(std::async(std::launch::async, check, start_row, end_row));
+        start_row = end_row;
     }
-    return true;
+
+    // Wait for all threads to complete
+    for (auto& fut : futures) {
+        fut.get();
+    }
+
+    // Return the final result
+    return is_identity;
 }
 
 template<typename T>
 bool MatrixChecks<T>::scalar_matrix_check(std::vector<std::vector<T>> vect) {
     // Returns true if given matrix is an scalar matrix.
-    if (!square_matrix_check(vect)) { return false; }
+    
+    if (!square_matrix_check(vect)) {
+        return false;
+    }
     T temp = vect[0][0];
-    for (int i = 0; i < vect.size(); i++)
-    {
-        for (int j = 0; j < vect[i].size(); j++)
+    // Shared atomic flag to signal if any thread detects an anomaly
+    std::atomic<bool> is_identity{ true };
+
+    auto check = [&](int start_row, int end_row) {
+        for (int i = start_row; i < end_row && is_identity; i++)
         {
-            if (vect[i][i] != temp) {
-                return false;
-            }
-            else if (i != j && vect[i][j] != 0) {
-                return false;
+            for (int j = 0; j < vect[i].size(); j++)
+            {
+                if (vect[i][i] != temp) {
+                    is_identity = false;
+                    return;
+                }
+                else if (i != j && vect[i][j] != 0) {
+                    is_identity = false;
+                    return;
+                }
             }
         }
+    };
+
+    // Determine the number of threads to use
+    unsigned int num_threads = std::thread::hardware_concurrency();
+    if (num_threads == 0) num_threads = 2;  // Fallback to 2 if unable to detect
+
+    // Create futures and divide work across threads
+    std::vector<std::future<void>> futures;
+    int rows_per_thread = vect.size() / num_threads;
+    int remainder = vect.size() % num_threads;
+
+    int start_row = 0;
+    for (unsigned int i = 0; i < num_threads; ++i) {
+        int end_row = start_row + rows_per_thread + (i < remainder ? 1 : 0);
+        futures.emplace_back(std::async(std::launch::async, check, start_row, end_row));
+        start_row = end_row;
     }
-    return true;
+
+    // Wait for all threads to complete
+    for (auto& fut : futures) {
+        fut.get();
+    }
+
+    // Return the final result
+    return is_identity;
 }
 
 template<typename T>
 bool MatrixChecks<T>::null_matrix_check(std::vector<std::vector<T>> vect) {
     // Returns true if given matrix is a null matrix.
-    for (int i = 0; i < vect.size(); i++)
-    {
-        for (int j = 0; j < vect[i].size(); j++)
+    
+    // Shared atomic flag to signal if any thread detects an anomaly
+    std::atomic<bool> is_true{ true };
+
+    auto check = [&](int start_row, int end_row) {
+        for (int i = start_row; i < end_row && is_true; i++)
         {
-            if (vect[i][j] != 0) {
-                return false;
+            for (int j = 0; j < vect[i].size(); j++)
+            {
+                if (vect[i][j] != 0) {
+                    is_true = false;
+                    return;
+                }
             }
         }
+        };
+
+    // Determine the number of threads to use
+    unsigned int num_threads = std::thread::hardware_concurrency();
+    if (num_threads == 0) num_threads = 2;  // Fallback to 2 if unable to detect
+
+    // Create futures and divide work across threads
+    std::vector<std::future<void>> futures;
+    int rows_per_thread = vect.size() / num_threads;
+    int remainder = vect.size() % num_threads;
+
+    int start_row = 0;
+    for (unsigned int i = 0; i < num_threads; ++i) {
+        int end_row = start_row + rows_per_thread + (i < remainder ? 1 : 0);
+        futures.emplace_back(std::async(std::launch::async, check, start_row, end_row));
+        start_row = end_row;
     }
-    return true;
+
+    // Wait for all threads to complete
+    for (auto& fut : futures) {
+        fut.get();
+    }
+
+    // Return the final result
+    return is_true;
 }
 
 template<typename T>
