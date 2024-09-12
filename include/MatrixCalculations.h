@@ -22,10 +22,10 @@ public:
     void view(const std::vector<std::vector<T>>& vect);
 
     void set_input_matrix_1(const std::vector<std::vector<T>>& input_data);
-    std::vector<std::vector<T>> get_input_matrix_1();
+    std::vector<std::vector<T>>& get_input_matrix_1();
 
     void set_input_matrix_2(const std::vector<std::vector<T>>& input_data);
-    std::vector<std::vector<T>> get_input_matrix_2();
+    std::vector<std::vector<T>>& get_input_matrix_2();
 
     void set_output_matrix(const std::vector<std::vector<T>>& output_data);
     std::vector<std::vector<T>> get_output_matrix();

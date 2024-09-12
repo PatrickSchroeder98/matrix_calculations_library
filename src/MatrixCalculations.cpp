@@ -30,7 +30,7 @@ void MatrixCalculations<T>::set_input_matrix_1(const std::vector<std::vector<T>>
 }
 
 template<typename T>
-std::vector<std::vector<T>> MatrixCalculations<T>::get_input_matrix_1() {
+std::vector<std::vector<T>>& MatrixCalculations<T>::get_input_matrix_1() {
     // Method that allows to get the value of input_matrix_1.
     return input_matrix_1;
 }
@@ -42,7 +42,7 @@ void MatrixCalculations<T>::set_input_matrix_2(const std::vector<std::vector<T>>
 }
 
 template<typename T>
-std::vector<std::vector<T>> MatrixCalculations<T>::get_input_matrix_2() {
+std::vector<std::vector<T>>& MatrixCalculations<T>::get_input_matrix_2() {
     // Method that allows to get the value of input_matrix_2.
     return input_matrix_2;
 }

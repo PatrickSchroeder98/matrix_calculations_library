@@ -35,6 +35,7 @@ std::vector<std::vector<T>> MatrixIO<T>::load_matrix(std::string path) {
     }
     catch (const MatrixDimensionMismatchException& e) {
         std::cout << " (Error code: " << e.getErrorCode() << ")\n";
+        return { {} };
     }
     return vect;
 }
