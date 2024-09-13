@@ -29,6 +29,16 @@ int main() {
 
     vect_double = API.add_matrices(vect_double, vect_double2);
     mclc.view(vect_double);
+    std::cout << std::endl;
+    vect_double = API.multiply_matrix_by_scalar(vect_double, 2.0);
+    mclc.view(vect_double);
+    std::cout << std::endl;
+    vect_double = API.transpose_matrix(vect_double);
+    mclc.view(vect_double);
+    std::cout << std::endl;
+    vect_double = API.multiply_matrices(vect_double, vect_double);
+    mclc.view(vect_double);
+    std::cout << std::endl;
 
     mio.save_matrix("C:/src/data_saved.dat", vect_double);
     return 0;
