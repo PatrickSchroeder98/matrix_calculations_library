@@ -14,7 +14,7 @@ namespace matrixcapitests
 
 		TEST_METHOD(TestMatrixAdditionAPI)
 		{
-			//Test of additon method called from API.
+			// Test of additon method called from API.
 			MatrixCalculationsAPI<double> API;
 			std::vector<std::vector<double>> input_matrix = {
 				{2.0, 2.0, 3.0},

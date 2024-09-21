@@ -937,7 +937,7 @@ namespace matrixcalculationslibrarytests
 
         TEST_METHOD(TestMultiplyMatrices_2x3_3x2)
         {
-            // Test multiplying a 2x3 matrix with a 3x2 matrix
+            // Test for multiplying a 2x3 matrix with a 3x2 matrix.
             MatrixCalculations<double> mx;
 
             // Input matrices
@@ -978,7 +978,7 @@ namespace matrixcalculationslibrarytests
 
         TEST_METHOD(TestMultiplyMatrices_3x3_3x3)
         {
-            // Test multiplying two 3x3 matrices
+            // Test for multiplying two 3x3 matrices.
             MatrixCalculations<double> mx;
 
             // Input matrices
