@@ -10,7 +10,7 @@ template<typename T>
 class MatrixIO {
 public:
 	std::vector<std::vector<T>> load_matrix(std::string path);
-	void save_matrix(const std::string& path, const std::vector<std::vector<T>>& vect);
+	bool save_matrix(const std::string& path, const std::vector<std::vector<T>>& vect);
 };
 
 #include "../../matrix_calculations_library/src/MatrixIO.cpp"

@@ -19,63 +19,83 @@ int main() {
        {70.7, 80.8, 90.9}
     };
     std::vector<std::vector<double>> vect_output;
-    MatrixIO<double> mio;
-    MatrixCalculations<double> mclc;
-    MatrixChecks<double> mxc;
+    std::vector<std::vector<std::vector<double>>> all_minors;
+    
     MatrixCalculationsAPI<double> API;
 
-    //vect_double = mio.load_matrix("C:/src/data.dat");
     std::cout << "Intput matrix 1:" << std::endl;
-    mclc.view(vect_double);
+    API.view(vect_double);
     std::cout << std::endl;
     std::cout << "Intput matrix 2:" << std::endl;
-    mclc.view(vect_double2);
+    API.view(vect_double2);
     std::cout << std::endl;
 
     vect_output = API.add_matrices(vect_double, vect_double2);
     std::cout << "Output matrix after adding matrix 1 and matrix 2:" << std::endl;
-    mclc.view(vect_output);
+    API.view(vect_output);
     std::cout << std::endl;
 
     std::cout << "Intput matrix 1:" << std::endl;
-    mclc.view(vect_double);
+    API.view(vect_double);
     std::cout << std::endl;
     std::cout << "Intput matrix 2:" << std::endl;
-    mclc.view(vect_double2);
+    API.view(vect_double2);
     std::cout << std::endl;
 
     vect_output = API.subtract_matrices(vect_double, vect_double2);
     std::cout << "Output matrix after subtraction matrix 2 from matrix 1:" << std::endl;
-    mclc.view(vect_output);
+    API.view(vect_output);
     std::cout << std::endl;
 
     std::cout << "Intput matrix 1:" << std::endl;
-    mclc.view(vect_double);
+    API.view(vect_double);
     std::cout << std::endl;
     std::cout << "Output matrix after multiplying input matrix 1 by scalar equal to 2.0:" << std::endl;
     vect_output = API.multiply_matrix_by_scalar(vect_double, 2.0);
-    mclc.view(vect_output);
+    API.view(vect_output);
     std::cout << std::endl;
 
     std::cout << "Intput matrix 1:" << std::endl;
-    mclc.view(vect_double);
+    API.view(vect_double);
     std::cout << std::endl;
     std::cout << "Output matrix being transposed input matrix 1:" << std::endl;
     vect_output = API.transpose_matrix(vect_double);
-    mclc.view(vect_output);
+    API.view(vect_output);
     std::cout << std::endl;
 
     std::cout << "Intput matrix 1:" << std::endl;
-    mclc.view(vect_double);
+    API.view(vect_double);
     std::cout << std::endl;
     std::cout << "Intput matrix 2:" << std::endl;
-    mclc.view(vect_double2);
+    API.view(vect_double2);
     std::cout << std::endl;
     vect_output = API.multiply_matrices(vect_double, vect_double2);
     std::cout << "Output matrix after multiplying matrix 1 by matrix 2:" << std::endl;
-    mclc.view(vect_output);
+    API.view(vect_output);
     std::cout << std::endl;
 
-    //mio.save_matrix("C:/src/data_saved.dat", vect_double);
+    std::cout << "Intput matrix 1:" << std::endl;
+    API.view(vect_double);
+    std::cout << std::endl;
+    vect_output = API.cut_minor(vect_double, 0, 0);
+    std::cout << "Output minor matrix after cutting row 0 and column 0:" << std::endl;
+    API.view(vect_output);
+    std::cout << std::endl;
+
+    vect_output = API.load_matrix("C:/src/data.dat");
+    std::cout << "Matrix loaded from file:" << std::endl;
+    API.view(vect_output);
+    API.save_matrix("C:/src/data_saved.dat", vect_output);
+    std::cout << std::endl;
+
+    all_minors = API.cut_all_minors(vect_double);
+    std::cout << "All minors cut from matrix 1:" << std::endl;
+    for (size_t i = 0; i < all_minors.size(); i++)
+    {
+        API.view(all_minors[i]);
+        std::cout << std::endl;
+    }
+    
+
     return 0;
 }

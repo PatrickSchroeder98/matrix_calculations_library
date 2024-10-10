@@ -41,7 +41,7 @@ std::vector<std::vector<T>> MatrixIO<T>::load_matrix(std::string path) {
 }
 
 template<typename T>
-void MatrixIO<T>::save_matrix(const std::string& path, const std::vector<std::vector<T>>& vect) {
+bool MatrixIO<T>::save_matrix(const std::string& path, const std::vector<std::vector<T>>& vect) {
     std::ofstream file{ path };
 
     try {
@@ -52,10 +52,12 @@ void MatrixIO<T>::save_matrix(const std::string& path, const std::vector<std::ve
                 }
                 file << "\n";
             }
+            return true;
         }
         else {
             throw MatrixFileOperationException("Invalid file with matrix.", 2);
             std::cout << "Error!" << std::endl;
+            return false;
         }
     } catch (const MatrixFileOperationException& e) {
         std::cout << e.what() << " (Error code: " << e.getErrorCode() << ")\n";

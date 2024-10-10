@@ -76,3 +76,42 @@ std::vector<std::vector<T>> MatrixCalculationsAPI<T>::transpose_matrix(const std
 	mclc.transpose_matrix();
 	return mclc.get_transposed_matrix();
 }
+
+template<typename T>
+std::vector<std::vector<T>> MatrixCalculationsAPI<T>::cut_minor(const std::vector<std::vector<T>>& matrix, int row, int column)
+{
+	// API method for cutting a minor from matrix
+	mclc.set_input_matrix_1(matrix);
+	mclc.cut_minor_matrix(row, column);
+	return mclc.get_minor_matrix();
+}
+
+template<typename T>
+std::vector<std::vector<std::vector<T>>> MatrixCalculationsAPI<T>::cut_all_minors(const std::vector<std::vector<T>>& matrix)
+{
+	// API method for cutting all minors from given matrix
+	mclc.set_input_matrix_1(matrix);
+	mclc.cut_all_minor_matrices();
+	return mclc.get_all_minors();
+}
+
+template<typename T>
+std::vector<std::vector<T>> MatrixCalculationsAPI<T>::load_matrix(std::string path)
+{
+	// API method for loading a matrix from a file
+	return mio.load_matrix(path);
+}
+
+template<typename T>
+bool MatrixCalculationsAPI<T>::save_matrix(std::string path, const std::vector<std::vector<T>>& vect)
+{
+	// API method for saving a matrix to a file
+	return mio.save_matrix(path, vect);
+}
+
+template<typename T>
+void MatrixCalculationsAPI<T>::view(const std::vector<std::vector<T>>& matrix)
+{
+	// API method for displaying a matrix
+	mclc.view(matrix);
+}
