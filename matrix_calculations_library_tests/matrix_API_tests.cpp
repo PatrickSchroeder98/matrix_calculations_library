@@ -210,5 +210,67 @@ namespace matrixcapitests
 			Assert::AreEqual((size_t)1, actual_output.size());
 		}
 
+		TEST_METHOD(TestGetMatrixMinorValid)
+		{
+			// Test for checking if method that cuts matrix minor works correctly from API.
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> input_matrix = {
+				{1.1, 2.2, 3.3},
+				{4.4, 5.5, 6.6},
+				{7.7, 8.8, 9.9}
+			};
+			std::vector<std::vector<double>> expected_output = {
+				{5.5, 6.6},
+				{8.8, 9.9}
+			};
+			
+			std::vector<std::vector<double>> actual_output = API.cut_minor(input_matrix, 0, 0);
+			Assert::AreEqual(expected_output.size(), actual_output.size());
+			for (size_t i = 0; i < expected_output.size(); ++i) {
+				Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+
+				for (size_t j = 0; j < expected_output[i].size(); ++j) {
+					Assert::AreEqual(expected_output[i][j], actual_output[i][j]);
+				}
+			}
+		}
+		TEST_METHOD(TestCutAllMinorsAPI)
+		{
+			// Test for checking if the method cutting all minors from matrix works correctly from API.
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> input_matrix = {
+				{1.1, 2.2},
+				{3.3, 4.4},
+			};
+			std::vector<std::vector<std::vector<double>>> expected_output = {
+				{
+					{ 4.4 }
+				},
+				{
+					{ 3.3 }
+				},
+				{
+					{ 2.2 }
+				},
+				{
+					{ 1.1 }
+				}
+			};
+			std::vector<std::vector<std::vector<double>>> actual_output = API.cut_all_minors(input_matrix);
+
+			Assert::AreEqual(expected_output.size(), actual_output.size());
+			for (size_t i = 0; i < expected_output.size(); ++i) {
+				Assert::AreEqual(expected_output[i].size(), actual_output[i].size());
+				for (size_t j = 0; j < expected_output[i].size(); ++j) {
+					Assert::AreEqual(expected_output[i][j].size(), actual_output[i][j].size());
+					for (size_t k = 0; k < expected_output[i][j].size(); ++k) {
+						Assert::AreEqual(expected_output[i][j][k], actual_output[i][j][k]);
+					}
+				}
+			}
+		}
+
 	};
+
+
 }
