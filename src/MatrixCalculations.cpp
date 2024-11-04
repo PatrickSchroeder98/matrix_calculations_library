@@ -393,3 +393,33 @@ void MatrixCalculations<T>::multiply_matrices() {
     // Save the output to attribute
     set_output_matrix(result);
 }
+
+template<typename T>
+void MatrixCalculations<T>::count_det_large_matrix() {
+    // Method to calculate determinant of large matrices.
+    if (input_matrix_1.size() <= 3) {
+        check_matrix_det();
+    }
+    else {
+        std::vector<std::vector<T>> tmp = input_matrix_1;
+        int sum = 0;
+
+        std::vector<T> row = input_matrix_1[0];
+
+        for (int k = 1; k < row.size(); k = k + 2) {
+            row[k] = row[k] * -1;
+        }
+
+        for (int i = 0; i < input_matrix_1[0].size(); i++) {
+            cut_minor_matrix(0, i);
+            set_input_matrix_1(get_minor_matrix());
+            count_det_large_matrix();
+            row[i] = row[i] * get_det();
+            set_input_matrix_1(tmp);
+        }
+        for (auto& n : row) {
+            sum += n;
+        }
+        set_det(sum);
+    }
+}

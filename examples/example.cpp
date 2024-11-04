@@ -97,5 +97,17 @@ int main() {
     }
     
 
+    vect_double = {
+        {-2, 7,	0, 6, -2 },
+        { 1, -1, 3, 2, 2 },
+        { 3, 4,	0, 5, 3 },
+        { 2, 5, -4, -2,	2 },
+        { 0, 3, -1,	1, -4 },
+    };
+    std::cout << "Intput matrix 1:" << std::endl;
+    API.view(vect_double);
+    double result = API.count_det(vect_double);
+    std::cout << "Result of determinant: " << result << std::endl;
+
     return 0;
 }

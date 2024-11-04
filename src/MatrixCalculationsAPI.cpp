@@ -80,7 +80,7 @@ std::vector<std::vector<T>> MatrixCalculationsAPI<T>::transpose_matrix(const std
 template<typename T>
 std::vector<std::vector<T>> MatrixCalculationsAPI<T>::cut_minor(const std::vector<std::vector<T>>& matrix, int row, int column)
 {
-	// API method for cutting a minor from matrix
+	// API method for cutting a minor from matrix.
 	mclc.set_input_matrix_1(matrix);
 	mclc.cut_minor_matrix(row, column);
 	return mclc.get_minor_matrix();
@@ -89,7 +89,7 @@ std::vector<std::vector<T>> MatrixCalculationsAPI<T>::cut_minor(const std::vecto
 template<typename T>
 std::vector<std::vector<std::vector<T>>> MatrixCalculationsAPI<T>::cut_all_minors(const std::vector<std::vector<T>>& matrix)
 {
-	// API method for cutting all minors from given matrix
+	// API method for cutting all minors from given matrix.
 	mclc.set_input_matrix_1(matrix);
 	mclc.cut_all_minor_matrices();
 	return mclc.get_all_minors();
@@ -98,20 +98,37 @@ std::vector<std::vector<std::vector<T>>> MatrixCalculationsAPI<T>::cut_all_minor
 template<typename T>
 std::vector<std::vector<T>> MatrixCalculationsAPI<T>::load_matrix(std::string path)
 {
-	// API method for loading a matrix from a file
+	// API method for loading a matrix from a file.
 	return mio.load_matrix(path);
 }
 
 template<typename T>
 bool MatrixCalculationsAPI<T>::save_matrix(std::string path, const std::vector<std::vector<T>>& vect)
 {
-	// API method for saving a matrix to a file
+	// API method for saving a matrix to a file.
 	return mio.save_matrix(path, vect);
 }
 
 template<typename T>
 void MatrixCalculationsAPI<T>::view(const std::vector<std::vector<T>>& matrix)
 {
-	// API method for displaying a matrix
+	// API method for displaying a matrix.
 	mclc.view(matrix);
+}
+
+template<typename T>
+T MatrixCalculationsAPI<T>::count_det(const std::vector<std::vector<T>>& matrix) {
+	// API method for counting determinant of matrix.
+	try {
+		if (!mcks.square_matrix_check(matrix)) {
+			throw MatrixDimensionMismatchException("Invalid dimensions of matrix.", 1);
+		}
+		mclc.set_input_matrix_1(matrix);
+		mclc.count_det_large_matrix();
+		return mclc.get_det();
+	}
+	catch (const MatrixDimensionMismatchException& e) {
+		std::cout << " (Error code: " << e.getErrorCode() << ")\n";
+		return 0;
+	}
 }
