@@ -1019,5 +1019,104 @@ namespace matrixcalculationslibrarytests
             }
         }
 
+        TEST_METHOD(TestCountDet1x1)
+        {
+            // Test for counting determinant of 1x1 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix {
+                {1}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.count_det_large_matrix();
+
+            double expected_output = 1.0;
+            double actual_output = mx.get_det();
+
+            Assert::AreEqual(expected_output, actual_output);
+        }
+
+        TEST_METHOD(TestCountDet2x2)
+        {
+            // Test for counting determinant of 2x2 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {3.0, -4.0},
+                {7.0, -6.0}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.count_det_large_matrix();
+
+            double expected_output = 10.0;
+            double actual_output = mx.get_det();
+
+            Assert::AreEqual(expected_output, actual_output);
+        }
+
+        TEST_METHOD(TestCountDet3x3)
+        {
+            // Test for counting determinant of 3x3 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {2.0, 5.0, 3.0},
+                {-1.0, 2.0, 5.0},
+                {2.0, 1.0, 3.0}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.count_det_large_matrix();
+
+            double expected_output = 52.0;
+            double actual_output = mx.get_det();
+
+            Assert::AreEqual(expected_output, actual_output);
+        }
+
+        TEST_METHOD(TestCountDet4x4)
+        {
+            // Test for counting determinant of 4x4 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {1.0, 0.0, 4.0, -6.0},
+                {2.0, 5.0, 0.0, 3.0},
+                {-1.0, 2.0, 3.0, 5.0},
+                {2.0, 1.0, -2.0, 3.0}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.count_det_large_matrix();
+
+            double expected_output = 318.0;
+            double actual_output = mx.get_det();
+
+            Assert::AreEqual(expected_output, actual_output);
+        }
+
+        TEST_METHOD(TestCountDet5x5)
+        {
+            // Test for counting determinant of 5x5 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {-2, 7,	0, 6, -2 },
+                { 1, -1, 3, 2, 2 },
+                { 3, 4,	0, 5, 3 },
+                { 2, 5, -4, -2,	2 },
+                { 0, 3, -1,	1, -4 },
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.count_det_large_matrix();
+
+            double expected_output = 1440.0;
+            double actual_output = mx.get_det();
+
+            Assert::AreEqual(expected_output, actual_output);
+        }
 	};
 }
