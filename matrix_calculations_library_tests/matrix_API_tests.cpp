@@ -270,6 +270,107 @@ namespace matrixcapitests
 			}
 		}
 
+		TEST_METHOD(TestAPICountDet1x1)
+		{
+			// Test for counting determinant of 1x1 matrix from API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{1}
+			};
+
+			double expected_output = 1.0;
+			double actual_output = API.count_det(matrix);
+
+			Assert::AreEqual(expected_output, actual_output);
+		}
+
+		TEST_METHOD(TestAPICountDet2x2)
+		{
+			// Test for counting determinant of 2x2 matrix from API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{3.0, -4.0},
+				{7.0, -6.0}
+			};
+
+
+			double expected_output = 10.0;
+			double actual_output = API.count_det(matrix);
+
+			Assert::AreEqual(expected_output, actual_output);
+		}
+
+		TEST_METHOD(TestAPICountDet3x3)
+		{
+			// Test for counting determinant of 3x3 matrix from API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{2.0, 5.0, 3.0},
+				{-1.0, 2.0, 5.0},
+				{2.0, 1.0, 3.0}
+			};
+
+			double expected_output = 52.0;
+			double actual_output = API.count_det(matrix);
+
+			Assert::AreEqual(expected_output, actual_output);
+		}
+
+		TEST_METHOD(TestAPICountDet4x4)
+		{
+			// Test for counting determinant of 4x4 matrix from API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{1.0, 0.0, 4.0, -6.0},
+				{2.0, 5.0, 0.0, 3.0},
+				{-1.0, 2.0, 3.0, 5.0},
+				{2.0, 1.0, -2.0, 3.0}
+			};
+
+			double expected_output = 318.0;
+			double actual_output = API.count_det(matrix);
+
+			Assert::AreEqual(expected_output, actual_output);
+		}
+
+		TEST_METHOD(TestAPICountDet5x5)
+		{
+			// Test for counting determinant of 5x5 matrix from API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{-2, 7,	0, 6, -2 },
+				{ 1, -1, 3, 2, 2 },
+				{ 3, 4,	0, 5, 3 },
+				{ 2, 5, -4, -2,	2 },
+				{ 0, 3, -1,	1, -4 },
+			};
+
+			double expected_output = 1440.0;
+			double actual_output = API.count_det(matrix);
+
+			Assert::AreEqual(expected_output, actual_output);
+		}
+
+		TEST_METHOD(TestAPICountDetException)
+		{
+			// Test for counting determinant function if exception is raised.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{1.0, 2.0}
+			};
+
+			double expected_output = 0.0;
+			double actual_output = API.count_det(matrix);
+
+			Assert::AreEqual(expected_output, actual_output);
+		}
+
 	};
 
 
