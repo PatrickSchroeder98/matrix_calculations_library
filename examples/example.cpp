@@ -88,6 +88,9 @@ int main() {
     API.save_matrix("C:/src/data_saved.dat", vect_output);
     std::cout << std::endl;
 
+    std::cout << "Intput matrix 1:" << std::endl;
+    API.view(vect_double);
+    std::cout << std::endl;
     all_minors = API.cut_all_minors(vect_double);
     std::cout << "All minors cut from matrix 1:" << std::endl;
     for (size_t i = 0; i < all_minors.size(); i++)
