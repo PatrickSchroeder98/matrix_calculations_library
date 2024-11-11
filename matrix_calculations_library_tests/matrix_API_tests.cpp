@@ -371,6 +371,167 @@ namespace matrixcapitests
 			Assert::AreEqual(expected_output, actual_output);
 		}
 
+		TEST_METHOD(TestAPICheckMatrixIntegrityTrue)
+		{
+			// Test to check if integrity matrix check from API returns true if matrix have correct form. 
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2, 3.3},
+				{4.4, 5.5, 6.6},
+				{7.7, 8.8, 9.9}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.integrity_check(vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixIntegrityFalse)
+		{
+			// Test to check if integrity matrix check from API returns false if matrix does not have correct form.  
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2, 3.3},
+				{4.4, 5.5, 6.6},
+				{7.7, 8.8}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.integrity_check(vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixSizesTrue)
+		{
+			// Test to check method called from API that compares two equal matrixes sizes. 
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2, 3.3},
+				{4.4, 5.5, 6.6},
+				{7.7, 8.8, 9.9}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.sizes_check(vect1, vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixSizesFalse1)
+		{
+			// Test to check method called from API that compares two differnt matrixes sizes.
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2, 3.3},
+				{4.4, 5.5, 6.6},
+				{7.7, 8.8, 9.9}
+			};
+
+			std::vector<std::vector<double>> vect2{
+				{1.1, 2.2, 3.3},
+				{4.4, 5.5, 6.6},
+			};
+
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.sizes_check(vect1, vect2));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixSizesFalse2)
+		{
+			// Alternative test to check method called from API that compares two differnt matrixes sizes.
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2, 3.3},
+				{4.4, 5.5, 6.6},
+				{7.7, 8.8, 9.9}
+			};
+
+			std::vector<std::vector<double>> vect2{
+				{1.1, 2.2},
+				{4.4, 5.5},
+				{7.7, 8.8}
+			};
+
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.sizes_check(vect1, vect2));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixColumnTrue)
+		{
+			// Test to check if column_matrix_check() method called from API returns true if given matrix is a column matrix.
+			std::vector<std::vector<double>> vect1{
+				{1.1},
+				{4.4},
+				{7.7}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.column_matrix_check(vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixColumnFalse)
+		{
+			// Test to check if column_matrix_check() method called from API returns false if given matrix is not a column matrix.
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2},
+				{4.4, 3.3},
+				{7.7, 4.4}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.column_matrix_check(vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixRowTrue)
+		{
+			// Test to check if row_matrix_check() method called from API returns true if given matrix is a row matrix.
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2, 3.3}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.row_matrix_check(vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixRowFalse)
+		{
+			// Test to check if row_matrix_check() method called from API returns false if given matrix is not a row matrix.
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2},
+				{4.4, 3.3},
+				{7.7, 4.4}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.row_matrix_check(vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixRectangularTrue)
+		{
+			// Test to check if rectangular_matrix_check() method called from API returns true if given matrix is a rectangular matrix.
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2, 3.3},
+				{1.1, 2.2, 3.3}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.rectangular_matrix_check(vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixRectangularFalse)
+		{
+			// Test to check if rectangular_matrix_check() method called from API returns false if given matrix is not a rectangular matrix.
+			std::vector<std::vector<double>> vect1{
+				{1.1}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.rectangular_matrix_check(vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixSquareTrue)
+		{
+			// Test to check if square_matrix_check() method called from API returns true if given matrix is a square matrix.
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2},
+				{1.1, 2.2}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.square_matrix_check(vect1));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixSquareFalse)
+		{
+			// Test to check if square_matrix_check() method called from API returns false if given matrix is a not a square matrix.
+			std::vector<std::vector<double>> vect1{
+				{1.1, 2.2}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.square_matrix_check(vect1));
+		}
+
 	};
 
 
