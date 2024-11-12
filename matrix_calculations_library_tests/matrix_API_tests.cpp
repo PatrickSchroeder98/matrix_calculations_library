@@ -532,6 +532,203 @@ namespace matrixcapitests
 			Assert::IsFalse(API.square_matrix_check(vect1));
 		}
 
+		TEST_METHOD(TestAPICheckMatrixIdentityTrue)
+		{
+			// Test to check if identity_matrix_check() method called from API returns true if given matrix is an identity matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 0},
+				{0, 1, 0},
+				{0, 0, 1}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.identity_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixIdentityFalse)
+		{
+			// Test to check if identity_matrix_check() method called from API returns false if given matrix is not an identity matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 0},
+				{0, 0, 0},
+				{0, 0, 1}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.identity_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixDiagonalTrue)
+		{
+			// Test to check if diagonal_matrix_check() method called from API returns true if given matrix is a diagonal matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 0},
+				{0, 2, 0},
+				{0, 0, 3}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.diagonal_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixDiagonalFalse)
+		{
+			// Test to check if diagonal_matrix_check() method called from API returns false if given matrix is not a diagonal matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 5},
+				{0, 2, 0},
+				{0, 0, 3}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.diagonal_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixScalarTrue)
+		{
+			// Test to check if scalar_matrix_check() method called from API returns true if given matrix is a scalar matrix.
+			std::vector<std::vector<double>> vect{
+				{3, 0, 0},
+				{0, 3, 0},
+				{0, 0, 3}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.scalar_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixScalarFalse)
+		{
+			// Test to check if scalar_matrix_check() method called from API returns false if given matrix is a not scalar matrix.
+			std::vector<std::vector<double>> vect{
+				{3, 0, 0},
+				{0, 4, 0},
+				{0, 0, 3}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.scalar_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixNullTrue)
+		{
+			// Test to check if null_matrix_check() method called from API returns true if given matrix is a null matrix.
+			std::vector<std::vector<double>> vect{
+				{0, 0, 0},
+				{0, 0, 0},
+				{0, 0, 0}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.null_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixNullFalse)
+		{
+			// Test to check if null_matrix_check() method called from API returns false if given matrix is not a null matrix.
+			std::vector<std::vector<double>> vect{
+				{0, 0, 0},
+				{0, 0, 0},
+				{0, 0, 1}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.null_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixUpperTriangularTrue)
+		{
+			// Test to check if upper triangular matrix check method called from API returns true if given matrix is an upper triangular matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 2, 3},
+				{0, 4, 5},
+				{0, 0, 6}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.upper_lower_triangular_matrix_check(vect, false));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixUpperTriangularFalse)
+		{
+			// Test to check if upper triangular matrix check method called from API returns false if given matrix is not an upper triangular matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 2, 3},
+				{0, 4, 5},
+				{7, 0, 6}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.upper_lower_triangular_matrix_check(vect, false));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixLowerTriangularTrue)
+		{
+			// Test to check if lower triangular matrix check method called from API returns true if given matrix is an lower triangular matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 0, 0},
+				{2, 3, 0},
+				{4, 5, 6}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.upper_lower_triangular_matrix_check(vect, true));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixLowerTriangularFalse)
+		{
+			// Test to check if lower triangular matrix check method called from API returns false if given matrix is not an lower triangular matrix.
+			std::vector<std::vector<double>> vect{
+				{1, 2, 3},
+				{0, 4, 5},
+				{7, 0, 6}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.upper_lower_triangular_matrix_check(vect, true));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixEqualityTrue)
+		{
+			// Test to check if equality_check called from API  returns true if two matrixes are equal.
+			std::vector<std::vector<double>> vect{
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 9}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.equality_check(vect, vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixEqualityFalse)
+		{
+			// Test to check if equality_check called from API  returns false if two matrixes are not equal.
+			std::vector<std::vector<double>> vect1{
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 9}
+			};
+			std::vector<std::vector<double>> vect2{
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 10}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.equality_check(vect1, vect2));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixBinaryTrue)
+		{
+			// Test to check if binary_matrix_check() method called from API returns true if given matrix is a binary matrix.
+			std::vector<std::vector<double>> vect{
+				{0, 0, 0},
+				{0, 1, 0},
+				{1, 1, 0}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsTrue(API.binary_matrix_check(vect));
+		}
+
+		TEST_METHOD(TestAPICheckMatrixBinaryFalse)
+		{
+			// Test to check if binary_matrix_check() method called from API returns false if given matrix is not a binary matrix.
+			std::vector<std::vector<double>> vect{
+				{0, 0, 0},
+				{1, 0, 1},
+				{0, 0, 3}
+			};
+			MatrixCalculationsAPI<double> API;
+			Assert::IsFalse(API.binary_matrix_check(vect));
+		}
+
 	};
 
 
