@@ -51,15 +51,13 @@ public:
     void multiply_by_scalar();
     void add_subtract(bool add);
     void multiply_matrices();
-
-
     void check_matrix_det();
     void check_matrix_size();
     void cut_minor_matrix(int n, int m);
     void transpose_matrix();
     void cut_all_minor_matrices();
-
     void count_det_large_matrix();
+
 };
 
 #include "../../matrix_calculations_library/src/MatrixCalculations.cpp"
