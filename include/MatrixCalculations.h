@@ -57,6 +57,7 @@ public:
     void transpose_matrix();
     void cut_all_minor_matrices();
     void count_det_large_matrix();
+    void invert_matrix();
 
 };
 

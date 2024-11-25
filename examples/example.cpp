@@ -22,11 +22,12 @@ int main() {
     std::vector<std::vector<std::vector<double>>> all_minors;
     
     MatrixCalculationsAPI<double> API;
+    MatrixCalculations<double> MC;
 
-    std::cout << "Intput matrix 1:" << std::endl;
+    std::cout << "Input matrix 1:" << std::endl;
     API.view(vect_double);
     std::cout << std::endl;
-    std::cout << "Intput matrix 2:" << std::endl;
+    std::cout << "Input matrix 2:" << std::endl;
     API.view(vect_double2);
     std::cout << std::endl;
 
@@ -35,10 +36,10 @@ int main() {
     API.view(vect_output);
     std::cout << std::endl;
 
-    std::cout << "Intput matrix 1:" << std::endl;
+    std::cout << "Input matrix 1:" << std::endl;
     API.view(vect_double);
     std::cout << std::endl;
-    std::cout << "Intput matrix 2:" << std::endl;
+    std::cout << "Input matrix 2:" << std::endl;
     API.view(vect_double2);
     std::cout << std::endl;
 
@@ -47,7 +48,7 @@ int main() {
     API.view(vect_output);
     std::cout << std::endl;
 
-    std::cout << "Intput matrix 1:" << std::endl;
+    std::cout << "Input matrix 1:" << std::endl;
     API.view(vect_double);
     std::cout << std::endl;
     std::cout << "Output matrix after multiplying input matrix 1 by scalar equal to 2.0:" << std::endl;
@@ -55,7 +56,7 @@ int main() {
     API.view(vect_output);
     std::cout << std::endl;
 
-    std::cout << "Intput matrix 1:" << std::endl;
+    std::cout << "Input matrix 1:" << std::endl;
     API.view(vect_double);
     std::cout << std::endl;
     std::cout << "Output matrix being transposed input matrix 1:" << std::endl;
@@ -63,10 +64,10 @@ int main() {
     API.view(vect_output);
     std::cout << std::endl;
 
-    std::cout << "Intput matrix 1:" << std::endl;
+    std::cout << "Input matrix 1:" << std::endl;
     API.view(vect_double);
     std::cout << std::endl;
-    std::cout << "Intput matrix 2:" << std::endl;
+    std::cout << "Input matrix 2:" << std::endl;
     API.view(vect_double2);
     std::cout << std::endl;
     vect_output = API.multiply_matrices(vect_double, vect_double2);
@@ -74,7 +75,7 @@ int main() {
     API.view(vect_output);
     std::cout << std::endl;
 
-    std::cout << "Intput matrix 1:" << std::endl;
+    std::cout << "Input matrix 1:" << std::endl;
     API.view(vect_double);
     std::cout << std::endl;
     vect_output = API.cut_minor(vect_double, 0, 0);
@@ -88,7 +89,7 @@ int main() {
     API.save_matrix("C:/src/data_saved.dat", vect_output);
     std::cout << std::endl;
 
-    std::cout << "Intput matrix 1:" << std::endl;
+    std::cout << "Input matrix 1:" << std::endl;
     API.view(vect_double);
     std::cout << std::endl;
     all_minors = API.cut_all_minors(vect_double);
@@ -107,10 +108,24 @@ int main() {
         { 2, 5, -4, -2,	2 },
         { 0, 3, -1,	1, -4 },
     };
-    std::cout << "Intput matrix 1:" << std::endl;
+    std::cout << "Input matrix 1:" << std::endl;
     API.view(vect_double);
     double result = API.count_det(vect_double);
     std::cout << "Result of determinant: " << result << std::endl;
+    std::cout << std::endl;
+
+    vect_double = {
+       {2.0, 1.0, 0.0},
+       {1.0, -1.0, 1.0},
+       {3.0, 2.0, 1.0}
+    };
+    std::cout << "Input matrix 1:" << std::endl;
+    API.view(vect_double);
+    std::cout << std::endl;
+    vect_output = API.invert_matrix(vect_double);
+    std::cout << "Output matrix after inverting matrix 1:" << std::endl;
+    API.view(vect_output);
+    std::cout << std::endl;
 
     return 0;
 }

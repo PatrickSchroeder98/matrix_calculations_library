@@ -186,7 +186,10 @@ T MatrixCalculationsAPI<T>::count_det(const std::vector<std::vector<T>>& matrix)
 	// API method for counting determinant of matrix.
 	try {
 		if (!mcks.square_matrix_check(matrix) || !mcks.integrity_check(matrix)) {
-			throw MatrixDimensionMismatchException("Invalid dimensions of matrix.", 1);
+			// Additional check for 0x0 matrix that should not throw an exception
+			if (!(matrix.size() == 1 && matrix[0].size() == 0) ) { 
+				throw MatrixDimensionMismatchException("Invalid dimensions of matrix.", 1);
+			}
 		}
 		mclc.set_input_matrix_1(matrix);
 		mclc.count_det_large_matrix();
@@ -195,5 +198,40 @@ T MatrixCalculationsAPI<T>::count_det(const std::vector<std::vector<T>>& matrix)
 	catch (const MatrixDimensionMismatchException& e) {
 		std::cout << " (Error code: " << e.getErrorCode() << ")\n";
 		return 0;
+	}
+}
+
+template<typename T>
+std::vector<std::vector<T>> MatrixCalculationsAPI<T>::invert_matrix(const std::vector<std::vector<T>>& matrix)
+{
+	// API method for matrix inversion.
+	try {
+		if (!mcks.square_matrix_check(matrix) || !mcks.integrity_check(matrix)) {
+			throw MatrixDimensionMismatchException("Invalid dimensions of matrix.", 1);
+		}
+		mclc.set_input_matrix_1(matrix);
+		mclc.invert_matrix();
+		return mclc.get_output_matrix();
+	}
+	catch (const MatrixDimensionMismatchException& e) {
+		std::cout << " (Error code: " << e.getErrorCode() << ")\n";
+		return { {} };
+	}
+}
+
+template<typename T>
+std::vector<T> MatrixCalculationsAPI<T>::get_matrix_sizes(const std::vector<std::vector<T>>& matrix) {
+	// API method for getting matrix sizes.
+	try {
+		if (!mcks.integrity_check(matrix)) {
+			throw MatrixDimensionMismatchException("Invalid dimensions of matrix.", 1);
+		}
+		mclc.set_input_matrix_1(matrix);
+		mclc.check_matrix_size();
+		return mclc.get_sizes();
+	}
+	catch (const MatrixDimensionMismatchException& e) {
+		std::cout << " (Error code: " << e.getErrorCode() << ")\n";
+		return {};
 	}
 }

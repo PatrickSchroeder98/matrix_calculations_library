@@ -17,9 +17,11 @@ public:
 	std::vector<std::vector<T>> multiply_matrix_by_scalar(const std::vector<std::vector<T>>& matrix, const T scalar);
 	std::vector<std::vector<T>> multiply_matrices(const std::vector<std::vector<T>>& matrix1, const std::vector<std::vector<T>>& matrix2);
 	std::vector<std::vector<T>> transpose_matrix(const std::vector<std::vector<T>>& matrix);
+	std::vector<std::vector<T>> invert_matrix(const std::vector<std::vector<T>>& matrix);
 	std::vector<std::vector<T>> cut_minor(const std::vector<std::vector<T>>& matrix, int row, int column);
 	std::vector<std::vector<std::vector<T>>> cut_all_minors(const std::vector<std::vector<T>>& matrix);
 	T count_det(const std::vector<std::vector<T>>& matrix);
+	std::vector<T> get_matrix_sizes(const std::vector<std::vector<T>>& matrix);
 
 	std::vector<std::vector<T>> load_matrix(std::string path);
 	bool save_matrix(std::string path, const std::vector<std::vector<T>>& vect);

@@ -188,7 +188,7 @@ void MatrixCalculations<T>::check_matrix_size() {
 
 template<typename T>
 void MatrixCalculations<T>::check_matrix_det() {
-    // Sets the detrminent of 1x1, 2x2 or 3x3 matrix. Returns 0 if given matrix is different from these options.
+    // Sets the detrminent of 1x1, 2x2, 3x3 or empty matrix. Returns 0 if given matrix is different from these options.
     std::vector<std::vector<T>>& vect = get_input_matrix_1();
     if (vect.size() == 1 && vect[0].size() == 1) {
         set_det(vect[0][0]);
@@ -205,6 +205,9 @@ void MatrixCalculations<T>::check_matrix_det() {
             - (vect[0][0] * vect[1][2] * vect[2][1])
             - (vect[0][1] * vect[1][0] * vect[2][2])
             );
+    }
+    else if (vect.size() == 1 && vect[0].size() == 0) {
+        set_det(1);
     }
     else {
         set_det(0);
@@ -344,5 +347,75 @@ void MatrixCalculations<T>::count_det_large_matrix() {
             sum += n;
         }
         set_det(sum);
+    }
+}
+
+template<typename T>
+void MatrixCalculations<T>::invert_matrix() {
+    // Method to calculate inverted matrix.
+
+    if (get_input_matrix_1().size() == 1 && get_input_matrix_1()[0].size() == 1) {
+        T t = get_input_matrix_1()[0][0];
+        if (t == 0.0) {
+            set_output_matrix({ {} });
+            return;
+        }
+        std::vector<std::vector<T>> tmp = { {} };
+        tmp[0].push_back(T(1.0 / t));
+        set_output_matrix(tmp);
+    }
+
+    else if (get_input_matrix_1().size() == 2 && get_input_matrix_1()[0].size() == 2) {
+        count_det_large_matrix();
+        T determinant = get_det();
+        if (determinant == 0) {
+            set_output_matrix({ {} });
+            return;
+        }
+
+        std::vector<std::vector<T>> tmp = { 
+            {(1.0 / determinant) * get_input_matrix_1()[1][1], 
+            (1.0 / determinant) * -get_input_matrix_1()[0][1]},
+            {(1.0 / determinant) * -get_input_matrix_1()[1][0],
+            (1.0 / determinant) * get_input_matrix_1()[0][0]}
+        };
+        
+        set_output_matrix(tmp);
+    }
+    else {
+        cut_all_minor_matrices();
+        count_det_large_matrix();
+        check_matrix_size();
+
+        T determinant = get_det();
+        if (determinant == 0) {
+            set_output_matrix({ {} });
+            return;
+        }
+
+        set_scalar(T(1.0/ determinant));
+        std::vector<std::vector<T>> tmp(get_sizes()[0], std::vector<T>(get_sizes()[1]));
+        std::vector<T> dets = {};
+
+        for (int i = 0; i < all_minors.size(); i++) {
+            set_input_matrix_1(all_minors[i]);
+            count_det_large_matrix();
+            dets.push_back(get_det());
+        }
+
+        int index = 0;
+        for (size_t i = 0; i < get_sizes()[0]; ++i) {
+            for (size_t j = 0; j < get_sizes()[1]; ++j) {
+                tmp[i][j] = dets[index] * ((i + j) % 2 == 0 ? 1 : -1);
+                index++;
+            }
+        }
+        set_input_matrix_1(tmp);
+        transpose_matrix();
+
+        set_input_matrix_1(get_transposed_matrix());
+    
+        // Result gets saved in output_matrix
+        multiply_by_scalar();
     }
 }
