@@ -270,6 +270,21 @@ namespace matrixcapitests
 			}
 		}
 
+		TEST_METHOD(TestAPICountDet0x0)
+		{
+			// Test for counting determinant of 0x0 matrix from API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{}
+			};
+
+			double expected_output = 1;
+			double actual_output = API.count_det(matrix);
+
+			Assert::AreEqual(expected_output, actual_output);
+		}
+
 		TEST_METHOD(TestAPICountDet1x1)
 		{
 			// Test for counting determinant of 1x1 matrix from API.
@@ -729,6 +744,182 @@ namespace matrixcapitests
 			Assert::IsFalse(API.binary_matrix_check(vect));
 		}
 
+		TEST_METHOD(TestAPICountInverse1x1)
+		{
+			// Test for method counting inverse of 1x1 matrix called in API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{4.0}
+			};
+
+			std::vector<std::vector<double>> expected_output = { { 0.25 } };
+			std::vector<std::vector<double>> actual_output = API.invert_matrix(matrix);
+
+			// Assert sizes of the output matrices
+			Assert::AreEqual(expected_output.size(), actual_output.size());
+			Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+			// Assert the contents of the output matrix
+			for (size_t i = 0; i < expected_output.size(); ++i) {
+				for (size_t j = 0; j < expected_output[i].size(); ++j) {
+					Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+				}
+			}
+		}
+
+		TEST_METHOD(TestAPICountInverse2x2)
+		{
+			// Test for method counting inverse of 2x2 matrix called in API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{2.0, 2.0},
+				{3.0, 4.0}
+			};
+
+			std::vector<std::vector<double>> expected_output = {
+				{2.0, -1.0},
+				{-1.5, 1.0}
+			};
+			std::vector<std::vector<double>> actual_output = API.invert_matrix(matrix);
+
+			// Assert sizes of the output matrices
+			Assert::AreEqual(expected_output.size(), actual_output.size());
+			Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+			// Assert the contents of the output matrix
+			for (size_t i = 0; i < expected_output.size(); ++i) {
+				for (size_t j = 0; j < expected_output[i].size(); ++j) {
+					Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+				}
+			}
+		}
+
+		TEST_METHOD(TestAPICountInverse3x3)
+		{
+			// Test for method counting inverse of 3x3 matrix called in API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{2.0, 1.0, 0.0},
+				{1.0, -1.0, 1.0},
+				{3.0, 2.0, 1.0}
+			};
+
+			std::vector<std::vector<double>> expected_output = {
+				{0.75, 0.25, -0.25},
+				{-0.5, -0.5, 0.5},
+				{-1.25, 0.25, 0.75}
+			};
+			std::vector<std::vector<double>> actual_output = API.invert_matrix(matrix);
+
+			// Assert sizes of the output matrices
+			Assert::AreEqual(expected_output.size(), actual_output.size());
+			Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+			// Assert the contents of the output matrix
+			for (size_t i = 0; i < expected_output.size(); ++i) {
+				for (size_t j = 0; j < expected_output[i].size(); ++j) {
+					Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+				}
+			}
+		}
+
+		TEST_METHOD(TestAPICountInverse4x4)
+		{
+			// Test for method counting inverse of 4x4 matrix called in API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{0.0, 0.0, -1.0, 2.0},
+				{0.0, 1.0, 0.0, 0.0},
+				{9.0, 0.0, 0.0, 0.0},
+				{0.0, 0.0, 0.0, 1.0}
+			};
+
+			std::vector<std::vector<double>> expected_output = {
+				{0.0, 0.0, 1.0 / 9.0, 0.0},
+				{0.0, 1.0, 0.0, 0.0},
+				{-1.0, 0.0, 0.0, 2.0},
+				{0.0, 0.0, 0.0, 1.0}
+			};
+			std::vector<std::vector<double>> actual_output = API.invert_matrix(matrix);
+
+			// Assert sizes of the output matrices
+			Assert::AreEqual(expected_output.size(), actual_output.size());
+			Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+			// Assert the contents of the output matrix
+			for (size_t i = 0; i < expected_output.size(); ++i) {
+				for (size_t j = 0; j < expected_output[i].size(); ++j) {
+					Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+				}
+			}
+		}
+
+		TEST_METHOD(TestAPICount2x2NoInverse)
+		{
+			// Test of inverese matrix method called in API for 2x2 matrix where matrix has no inverse.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{2.0, 3.0},
+				{2.0, 3.0}
+			};
+
+			std::vector<std::vector<double>> expected_output = {
+				{}
+			};
+			std::vector<std::vector<double>> actual_output = API.invert_matrix(matrix);
+
+			// Assert sizes of the output matrices
+			Assert::AreEqual(expected_output.size(), actual_output.size());
+			Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+		}
+
+		TEST_METHOD(TestAPIInverseException)
+		{
+			// Test of inverese matrix method called in API where input data raises an exception.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{1.0, 2.0},
+				{3.0, 4.0},
+				{5.0, 6.0}
+			};
+
+			std::vector<std::vector<double>> expected_output = {
+				{}
+			};
+			std::vector<std::vector<double>> actual_output = API.invert_matrix(matrix);
+
+			// Assert sizes of the output matrices
+			Assert::AreEqual(expected_output.size(), actual_output.size());
+			Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+		}
+
+		TEST_METHOD(TestAPIReadMatrixSizes)
+		{
+			// Test of method to get matrix sizes called in API.
+
+			MatrixCalculationsAPI<double> API;
+			std::vector<std::vector<double>> matrix{
+				{1.0, 2.0},
+				{3.0, 4.0},
+				{5.0, 6.0}
+			};
+
+			std::vector<double> expected_output = {3.0, 2.0};
+			std::vector<double> actual_output = API.get_matrix_sizes(matrix);
+
+			// Assert sizes of the output matrices
+			Assert::AreEqual(expected_output.size(), actual_output.size());
+			for (size_t j = 0; j < expected_output.size(); ++j) {
+				Assert::AreEqual(expected_output[j], actual_output[j], 0.001); // Allowing tolerance for floating-point comparison
+			}
+		}
 	};
 
 

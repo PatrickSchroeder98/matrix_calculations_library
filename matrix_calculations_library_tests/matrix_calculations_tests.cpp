@@ -1019,6 +1019,24 @@ namespace matrixcalculationslibrarytests
             }
         }
 
+        TEST_METHOD(TestCountDet0x0)
+        {
+            // Test for counting determinant of 0x0 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.count_det_large_matrix();
+
+            double expected_output = 1.0;
+            double actual_output = mx.get_det();
+
+            Assert::AreEqual(expected_output, actual_output);
+        }
+
         TEST_METHOD(TestCountDet1x1)
         {
             // Test for counting determinant of 1x1 matrix.
@@ -1103,11 +1121,11 @@ namespace matrixcalculationslibrarytests
 
             MatrixCalculations<double> mx;
             std::vector<std::vector<double>> matrix{
-                {-2, 7,	0, 6, -2 },
-                { 1, -1, 3, 2, 2 },
-                { 3, 4,	0, 5, 3 },
-                { 2, 5, -4, -2,	2 },
-                { 0, 3, -1,	1, -4 },
+                {-2.0, 7.0,	0.0, 6.0, -2.0 },
+                { 1.0, -1.0, 3.0, 2.0, 2.0 },
+                { 3.0, 4.0,	0.0, 5.0, 3.0 },
+                { 2.0, 5.0, -4.0, -2.0,	2.0 },
+                { 0.0, 3.0, -1.0, 1.0, -4.0 },
             };
 
             mx.set_input_matrix_1(matrix);
@@ -1117,6 +1135,156 @@ namespace matrixcalculationslibrarytests
             double actual_output = mx.get_det();
 
             Assert::AreEqual(expected_output, actual_output);
+        }
+
+        TEST_METHOD(TestCountInverse1x1)
+        {
+            // Test for counting inverse of 1x1 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {4.0}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.invert_matrix();
+
+            std::vector<std::vector<double>> expected_output = { { 0.25 } };
+            std::vector<std::vector<double>> actual_output = mx.get_output_matrix();
+
+            // Assert sizes of the output matrices
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+            // Assert the contents of the output matrix
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+                }
+            }
+        }
+
+        TEST_METHOD(TestCountInverse2x2)
+        {
+            // Test for counting inverse of 2x2 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {2.0, 2.0},
+                {3.0, 4.0}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.invert_matrix();
+
+            std::vector<std::vector<double>> expected_output = {
+                {2.0, -1.0},
+                {-1.5, 1.0}
+            };
+            std::vector<std::vector<double>> actual_output = mx.get_output_matrix();
+
+            // Assert sizes of the output matrices
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+            // Assert the contents of the output matrix
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+                }
+            }
+        }
+
+        TEST_METHOD(TestCountInverse3x3)
+        {
+            // Test for counting inverse of 3x3 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {2.0, 1.0, 0.0},
+                {1.0, -1.0, 1.0},
+                {3.0, 2.0, 1.0}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.invert_matrix();
+
+            std::vector<std::vector<double>> expected_output = {
+                {0.75, 0.25, -0.25},
+                {-0.5, -0.5, 0.5},
+                {-1.25, 0.25, 0.75}
+            };
+            std::vector<std::vector<double>> actual_output = mx.get_output_matrix();
+
+            // Assert sizes of the output matrices
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+            // Assert the contents of the output matrix
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+                }
+            }
+        }
+
+        TEST_METHOD(TestCountInverse4x4)
+        {
+            // Test for counting inverse of 4x4 matrix.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {0.0, 0.0, -1.0, 2.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {9.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.invert_matrix();
+
+            std::vector<std::vector<double>> expected_output = {
+                {0.0, 0.0, 1.0/9.0, 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {-1.0, 0.0, 0.0, 2.0},
+                {0.0, 0.0, 0.0, 1.0}
+            };
+            std::vector<std::vector<double>> actual_output = mx.get_output_matrix();
+
+            // Assert sizes of the output matrices
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+
+            // Assert the contents of the output matrix
+            for (size_t i = 0; i < expected_output.size(); ++i) {
+                for (size_t j = 0; j < expected_output[i].size(); ++j) {
+                    Assert::AreEqual(expected_output[i][j], actual_output[i][j], 0.001); // Allowing tolerance for floating-point comparison
+                }
+            }
+        }
+
+        TEST_METHOD(TestCount2x2NoInverse)
+        {
+            // Test of inverese matrix method for 2x2 matrix where matrix has no inverse.
+
+            MatrixCalculations<double> mx;
+            std::vector<std::vector<double>> matrix{
+                {2.0, 3.0},
+                {2.0, 3.0}
+            };
+
+            mx.set_input_matrix_1(matrix);
+            mx.invert_matrix();
+
+            std::vector<std::vector<double>> expected_output = {
+                {}
+            };
+            std::vector<std::vector<double>> actual_output = mx.get_output_matrix();
+
+            // Assert sizes of the output matrices
+            Assert::AreEqual(expected_output.size(), actual_output.size());
+            Assert::AreEqual(expected_output[0].size(), actual_output[0].size());
+                
         }
 	};
 }
